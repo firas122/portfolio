@@ -5,7 +5,7 @@ const formspreeId = import.meta.env.PUBLIC_FORMSPREE_ID || contact.formspreeId;
 const formAction = `https://formspree.io/f/${formspreeId}`;
 ---
 
-<section id="contact" class="border-t border-ink-100/80 py-20 sm:py-28 dark:border-ink-700/60">
+<section id="contact" class="border-t border-ink-200/70 py-20 sm:py-28 dark:border-ink-700/60">
   <div class="section-shell grid gap-12 lg:grid-cols-2 lg:gap-16">
     <div>
       <p class="section-heading">Contact</p>
@@ -17,7 +17,7 @@ const formAction = `https://formspree.io/f/${formspreeId}`;
       <div class="mt-8 flex flex-col gap-3">
         <a
           href={`mailto:${person.email}`}
-          class="inline-flex w-fit items-center gap-2 rounded-full border border-ink-100 px-5 py-3 text-sm font-semibold text-ink-900 transition-colors hover:border-accent/50 hover:text-accent-dim dark:border-ink-700 dark:text-ink-100 dark:hover:text-accent"
+          class="inline-flex w-fit items-center gap-2 rounded-full border border-ink-200 px-5 py-3 text-sm font-semibold text-ink-900 transition-colors hover:border-accent/50 hover:text-accent-dim dark:border-ink-700 dark:text-ink-100 dark:hover:text-accent"
         >
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="h-4 w-4">
             <path d="M4 4h16v16H4zM22 6l-10 7L2 6" />
@@ -48,7 +48,7 @@ const formAction = `https://formspree.io/f/${formspreeId}`;
             name="name"
             type="text"
             required
-            class="rounded-lg border border-ink-100 bg-white px-3 py-2.5 text-sm text-ink-900 outline-none transition-colors focus:border-accent dark:border-ink-700 dark:bg-ink-800 dark:text-ink-100"
+            class="rounded-lg border border-ink-200 bg-white px-3 py-2.5 text-sm text-ink-900 outline-none transition-colors focus:border-accent dark:border-ink-700 dark:bg-ink-800 dark:text-ink-100"
           />
         </div>
         <div class="flex flex-col gap-1.5">
@@ -58,7 +58,7 @@ const formAction = `https://formspree.io/f/${formspreeId}`;
             name="email"
             type="email"
             required
-            class="rounded-lg border border-ink-100 bg-white px-3 py-2.5 text-sm text-ink-900 outline-none transition-colors focus:border-accent dark:border-ink-700 dark:bg-ink-800 dark:text-ink-100"
+            class="rounded-lg border border-ink-200 bg-white px-3 py-2.5 text-sm text-ink-900 outline-none transition-colors focus:border-accent dark:border-ink-700 dark:bg-ink-800 dark:text-ink-100"
           />
         </div>
       </div>
@@ -73,7 +73,7 @@ const formAction = `https://formspree.io/f/${formspreeId}`;
           rows="5"
           required
           placeholder="Describe your documents, or drop a link to a sample."
-          class="resize-none rounded-lg border border-ink-100 bg-white px-3 py-2.5 text-sm text-ink-900 outline-none transition-colors focus:border-accent dark:border-ink-700 dark:bg-ink-800 dark:text-ink-100"
+          class="resize-none rounded-lg border border-ink-200 bg-white px-3 py-2.5 text-sm text-ink-900 outline-none transition-colors focus:border-accent dark:border-ink-700 dark:bg-ink-800 dark:text-ink-100"
         ></textarea>
       </div>
 

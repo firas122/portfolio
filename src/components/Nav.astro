@@ -2,7 +2,7 @@
 import { nav, person } from "@/data/content";
 ---
 
-<header class="sticky top-0 z-50 w-full border-b border-ink-100/80 bg-white/70 backdrop-blur-md dark:border-ink-700/60 dark:bg-ink-950/70">
+<header class="sticky top-0 z-50 w-full border-b border-ink-200/70 bg-white/75 backdrop-blur-md dark:border-ink-700/60 dark:bg-ink-950/70">
   <div class="section-shell flex h-16 items-center justify-between">
     <a href="#top" class="group flex items-center gap-2 font-mono text-sm font-semibold text-ink-900 dark:text-ink-100">
       <span class="flex h-7 w-7 items-center justify-center rounded-md border border-accent/40 bg-accent/10 text-accent-dim transition-colors group-hover:bg-accent/20 dark:text-accent">
@@ -29,7 +29,7 @@ import { nav, person } from "@/data/content";
         id="theme-toggle"
         type="button"
         aria-label="Toggle dark mode"
-        class="flex h-9 w-9 items-center justify-center rounded-full border border-ink-100 text-ink-400 transition-colors hover:border-accent/50 hover:text-accent-dim dark:border-ink-700 dark:hover:text-accent"
+        class="flex h-9 w-9 items-center justify-center rounded-full border border-ink-200 text-ink-400 transition-colors hover:border-accent/50 hover:text-accent-dim dark:border-ink-700 dark:hover:text-accent"
       >
         <svg id="icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="hidden h-4 w-4">
           <circle cx="12" cy="12" r="4"></circle>
@@ -52,7 +52,7 @@ import { nav, person } from "@/data/content";
         type="button"
         aria-label="Toggle menu"
         aria-expanded="false"
-        class="flex h-9 w-9 items-center justify-center rounded-full border border-ink-100 text-ink-400 md:hidden dark:border-ink-700"
+        class="flex h-9 w-9 items-center justify-center rounded-full border border-ink-200 text-ink-400 md:hidden dark:border-ink-700"
       >
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="h-4 w-4">
           <path d="M4 6h16M4 12h16M4 18h16"></path>
@@ -61,7 +61,7 @@ import { nav, person } from "@/data/content";
     </div>
   </div>
 
-  <nav id="mobile-menu" class="hidden border-t border-ink-100/80 px-6 pb-4 md:hidden dark:border-ink-700/60">
+  <nav id="mobile-menu" class="hidden border-t border-ink-200/70 px-6 pb-4 md:hidden dark:border-ink-700/60">
     <ul class="flex flex-col gap-1 pt-2">
       {
         nav.map((item) => (

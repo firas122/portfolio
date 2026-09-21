@@ -11,6 +11,7 @@ export default {
           bright: "#b3a8ff",
         },
         ink: {
+          50: "#f5f3fa",
           950: "#0a0713",
           900: "#120e1f",
           800: "#181329",
