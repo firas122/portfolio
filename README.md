@@ -1,0 +1,154 @@
+# Firas Jamli — Portfolio
+
+A single-page portfolio site for **Firas Jamli**, IT engineer specialized in Intelligent
+Document Processing (IDP) and Python development. Built with [Astro](https://astro.build)
+and [Tailwind CSS](https://tailwindcss.com), fully static, no backend.
+
+## Stack
+
+- **Astro** (static output, TypeScript strict mode)
+- **Tailwind CSS** for styling, with a small custom dark/futuristic design system
+  (see `tailwind.config.mjs` — `accent` and `ink` color scales)
+- **@astrojs/sitemap** for automatic `sitemap-index.xml` generation
+- No client-side framework (React/Vue/etc.) — a few small inline `<script>` tags
+  handle the theme toggle and mobile menu
+
+## Getting started
+
+```bash
+npm install
+npm run dev       # http://localhost:4321 (or next free port)
+```
+
+```bash
+npm run build      # type-checks with `astro check`, then builds to dist/
+npm run preview    # serve the production build locally
+```
+
+## Editing content
+
+**Every piece of copy on the site lives in one file: `src/data/content.ts`.**
+Name, bio, services, projects, experience, skills, links, contact text — all of it.
+You should not need to touch any `.astro` component to update text; components only
+read from this file and render it.
+
+Sections in `content.ts`:
+
+| Export | Controls |
+|---|---|
+| `site` | Page `<title>`, meta description, canonical URL, OG image |
+| `person` | Name, role, location, email, GitHub/Upwork/LinkedIn links |
+| `nav` | Sticky nav links |
+| `hero` | Headline, subheading, CTA buttons |
+| `about` | About section paragraphs |
+| `services` | Services grid (title + description) |
+| `projects` | Case-study cards (problem/approach/stack/outcome/link) |
+| `experience` | Timeline of roles |
+| `skills` | Skill groups |
+| `contact` | Contact section heading/body, Formspree form ID |
+
+The hero's "messy document → structured JSON" visual is pure CSS/SVG in
+`src/components/DocToJson.astro` — no image assets involved. Its sample JSON fields
+are hardcoded there (they're illustrative, not real data) since they're a visual, not copy.
+
+## Design decisions made without asking
+
+Per the brief, a few calls were made and are documented here rather than blocking on
+questions:
+
+- **Astro + Tailwind** was used (not plain HTML/CSS/JS) — it gives you the single
+  `content.ts` data file, TypeScript safety, and component reuse the brief asked for,
+  while still shipping a fully static site.
+- **Accent color**: a teal/cyan (`#4dd4c9`) on a near-black/off-white palette — reads
+  as "structured data / terminal / scanner" without being a generic SaaS-blue template.
+- **Fonts**: Inter (UI text) + JetBrains Mono (labels, code, the JSON visual) via Google
+  Fonts — a genuinely free pairing that fits the "document → data" positioning.
+- **Contact form**: wired to Formspree via `PUBLIC_FORMSPREE_ID`, read from an
+  environment variable at build time (falls back to a placeholder string if unset —
+  see Placeholders below). No secrets are committed.
+- **OG image**: shipped as `public/og-image.svg` rather than a `.png`, since there's no
+  raster image tooling in this environment. SVG works for most previews, but for
+  guaranteed compatibility with LinkedIn/Facebook/Twitter crawlers, export it as a
+  1200×630 PNG at the same path reference (see Placeholders).
+- **Arabic/RTL**: not built out (kept as a "structure ready for later" per the brief,
+  not implemented now). The content model (`content.ts`) is a plain object, so adding
+  an `ar` locale file and an `[lang]` route later is straightforward, but no i18n
+  routing exists yet.
+- Removed the placeholder PyCharm scaffold (`main.py`, `.venv`) that was in the
+  otherwise-empty project folder — it was IDE boilerplate, not project content.
+
+## Placeholders you still need to fill in
+
+1. **LinkedIn URL** — `person.links.linkedin` in `src/data/content.ts` currently points
+   to a placeholder (`https://www.linkedin.com/in/firas-jamli`). Replace with your real
+   profile URL.
+2. **Formspree form ID** — create a form at [formspree.io](https://formspree.io), then
+   either:
+   - copy `.env.example` to `.env` and set `PUBLIC_FORMSPREE_ID=your_id`, or
+   - set `PUBLIC_FORMSPREE_ID` as an environment variable in your host's build settings
+     (Vercel/Netlify/GitHub Actions).
+   Until set, the form action falls back to the literal string `YOUR_FORMSPREE_ID` and
+   will not submit anywhere.
+3. **Production domain** — `site.url` in `src/data/content.ts` and `site` in
+   `astro.config.mjs` are set to `https://firasjamli.dev` as a placeholder. Update both
+   to your real domain (used for canonical URLs, OG tags, and the sitemap).
+4. **OG image** — `public/og-image.svg` is a generated placeholder. Optional but
+   recommended: replace it with a designed 1200×630 PNG (update `site.ogImage` in
+   `content.ts` if you rename the file).
+5. **Email address** — currently set to `firas122@outlook.fr` in `person.email`.
+   Update if you'd rather use a different address for client inquiries.
+6. **A 4th project** (optional) — the brief left a slot open for an additional project.
+   Add another entry to the `projects` array in `content.ts` if you want one.
+
+## Deploying
+
+### Vercel
+1. Push this repo to GitHub.
+2. Import it in Vercel — it auto-detects Astro (`npm run build`, output `dist/`).
+3. Add `PUBLIC_FORMSPREE_ID` under Project Settings → Environment Variables.
+
+### Netlify
+1. Push this repo to GitHub.
+2. New site from Git — build command `npm run build`, publish directory `dist`.
+3. Add `PUBLIC_FORMSPREE_ID` under Site Settings → Environment Variables.
+
+### GitHub Pages
+1. In `astro.config.mjs`, set `site` to `https://<your-username>.github.io` and, if
+   this repo is not a top-level user/org site, add `base: "/<repo-name>"`.
+2. Add a GitHub Actions workflow using
+   [`withastro/action`](https://github.com/withastro/action) (official Astro deploy
+   action), or run `npm run build` and push the `dist/` folder to a `gh-pages` branch.
+3. GitHub Pages has no server, so `PUBLIC_FORMSPREE_ID` must be baked in at build time
+   via a repository secret passed to the Actions workflow — plain `.env` files aren't
+   read on GitHub's build runners.
+
+## Project structure
+
+```
+src/
+  components/     UI sections (Hero, About, Services, Projects, Experience, Skills, Contact, Nav, Footer)
+  data/
+    content.ts    All editable site copy — edit this, not the components
+  layouts/
+    Layout.astro  <head> meta tags, OG tags, JSON-LD, theme flash-prevention script
+  pages/
+    index.astro   Assembles the single page from the components above
+  styles/
+    global.css    Tailwind layers + a couple of shared utility classes (panel, glow-border)
+public/
+  favicon.svg
+  og-image.svg    Placeholder — see "Placeholders" above
+  robots.txt
+```
+
+## Accessibility & SEO notes
+
+- Semantic HTML throughout (`<header>`, `<nav>`, `<main>`, `<section>`, `<article>`,
+  `<footer>`), one `<h1>` in the hero, ordered heading levels per section.
+- `prefers-reduced-motion` disables animations/smooth-scroll for users who request it.
+- Dark/light mode follows `prefers-color-scheme` by default; the toggle in the nav
+  overrides it and persists the choice in `localStorage`.
+- Focus states use a visible ring (`:focus-visible`) rather than relying on default
+  browser outlines alone.
+- Run `npm run build` locally before deploying — it runs `astro check` first and will
+  fail the build on type errors.
