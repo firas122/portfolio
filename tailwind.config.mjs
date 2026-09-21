@@ -50,7 +50,6 @@ export default {
       animation: {
         "fade-up": "fade-up 0.7s ease-out both",
         float: "float 6s ease-in-out infinite",
-        scan: "scan 3s linear infinite",
         blink: "blink 1.1s step-end infinite",
       },
       keyframes: {
@@ -61,10 +60,6 @@ export default {
         float: {
           "0%, 100%": { transform: "translateY(0px)" },
           "50%": { transform: "translateY(-8px)" },
-        },
-        scan: {
-          "0%": { transform: "translateY(-100%)" },
-          "100%": { transform: "translateY(100%)" },
         },
         blink: {
           "0%, 100%": { opacity: "1" },
