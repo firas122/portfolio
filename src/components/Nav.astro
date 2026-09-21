@@ -1,0 +1,115 @@
+---
+import { nav, person } from "@/data/content";
+---
+
+<header class="sticky top-0 z-50 w-full border-b border-ink-100/80 bg-white/70 backdrop-blur-md dark:border-ink-700/60 dark:bg-ink-950/70">
+  <div class="section-shell flex h-16 items-center justify-between">
+    <a href="#top" class="group flex items-center gap-2 font-mono text-sm font-semibold text-ink-900 dark:text-ink-100">
+      <span class="flex h-7 w-7 items-center justify-center rounded-md border border-accent/40 bg-accent/10 text-accent-dim transition-colors group-hover:bg-accent/20 dark:text-accent">
+        FJ
+      </span>
+      <span class="hidden sm:inline">{person.name}</span>
+    </a>
+
+    <nav class="hidden items-center gap-8 md:flex">
+      {
+        nav.map((item) => (
+          <a
+            href={item.href}
+            class="text-sm font-medium text-ink-400 transition-colors hover:text-ink-900 dark:hover:text-ink-100"
+          >
+            {item.label}
+          </a>
+        ))
+      }
+    </nav>
+
+    <div class="flex items-center gap-2">
+      <button
+        id="theme-toggle"
+        type="button"
+        aria-label="Toggle dark mode"
+        class="flex h-9 w-9 items-center justify-center rounded-full border border-ink-100 text-ink-400 transition-colors hover:border-accent/50 hover:text-accent-dim dark:border-ink-700 dark:hover:text-accent"
+      >
+        <svg id="icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="hidden h-4 w-4">
+          <circle cx="12" cy="12" r="4"></circle>
+          <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path>
+        </svg>
+        <svg id="icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="hidden h-4 w-4">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"></path>
+        </svg>
+      </button>
+
+      <a
+        href="#contact"
+        class="hidden rounded-full bg-ink-900 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-accent-dim sm:inline-flex dark:bg-accent dark:text-ink-950 dark:hover:bg-accent-bright"
+      >
+        Contact
+      </a>
+
+      <button
+        id="mobile-menu-toggle"
+        type="button"
+        aria-label="Toggle menu"
+        aria-expanded="false"
+        class="flex h-9 w-9 items-center justify-center rounded-full border border-ink-100 text-ink-400 md:hidden dark:border-ink-700"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="h-4 w-4">
+          <path d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <nav id="mobile-menu" class="hidden border-t border-ink-100/80 px-6 pb-4 md:hidden dark:border-ink-700/60">
+    <ul class="flex flex-col gap-1 pt-2">
+      {
+        nav.map((item) => (
+          <li>
+            <a
+              href={item.href}
+              class="block rounded-lg px-2 py-2 text-sm font-medium text-ink-400 hover:bg-ink-100/50 hover:text-ink-900 dark:hover:bg-ink-800 dark:hover:text-ink-100"
+            >
+              {item.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+</header>
+
+<script>
+  const toggle = document.getElementById("theme-toggle");
+  const sunIcon = document.getElementById("icon-sun");
+  const moonIcon = document.getElementById("icon-moon");
+
+  function syncIcons() {
+    const isDark = document.documentElement.classList.contains("dark");
+    sunIcon?.classList.toggle("hidden", !isDark);
+    moonIcon?.classList.toggle("hidden", isDark);
+  }
+
+  syncIcons();
+
+  toggle?.addEventListener("click", () => {
+    const isDark = document.documentElement.classList.toggle("dark");
+    localStorage.setItem("theme", isDark ? "dark" : "light");
+    syncIcons();
+  });
+
+  const menuToggle = document.getElementById("mobile-menu-toggle");
+  const menu = document.getElementById("mobile-menu");
+
+  menuToggle?.addEventListener("click", () => {
+    const isOpen = menu?.classList.toggle("hidden") === false;
+    menuToggle.setAttribute("aria-expanded", String(isOpen));
+  });
+
+  menu?.querySelectorAll("a").forEach((link) => {
+    link.addEventListener("click", () => {
+      menu.classList.add("hidden");
+      menuToggle?.setAttribute("aria-expanded", "false");
+    });
+  });
+</script>

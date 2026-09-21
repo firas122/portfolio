@@ -1,0 +1,39 @@
+---
+import { services } from "@/data/content";
+
+const icons = [
+  // document
+  "M7 3h7l5 5v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1ZM14 3v5h5M9 13h6M9 17h6M9 9h2",
+  // scan / eye
+  "M3 8V5a2 2 0 0 1 2-2h3M16 3h3a2 2 0 0 1 2 2v3M21 16v3a2 2 0 0 1-2 2h-3M8 21H5a2 2 0 0 1-2-2v-3M8 12h8",
+  // config / sliders
+  "M4 6h10M18 6h2M4 12h4M12 12h8M4 18h13M21 18h0M8 4v4M16 10v4M6 16v4",
+  // api / terminal
+  "M4 4h16v16H4zM8 9l3 3-3 3M13 15h4",
+];
+---
+
+<section id="services" class="border-y border-ink-100/80 bg-ink-100/30 py-20 sm:py-28 dark:border-ink-700/60 dark:bg-ink-900/40">
+  <div class="section-shell">
+    <p class="section-heading">Services</p>
+    <h2 class="mt-3 max-w-xl text-3xl font-bold tracking-tight text-ink-900 sm:text-4xl dark:text-ink-100">
+      What I can do for your documents.
+    </h2>
+
+    <div class="mt-12 grid grid-cols-1 gap-5 sm:grid-cols-2">
+      {
+        services.map((service, i) => (
+          <div class="panel glow-border group relative overflow-hidden rounded-2xl p-6 transition-transform hover:-translate-y-1">
+            <div class="flex h-11 w-11 items-center justify-center rounded-xl border border-accent/30 bg-accent/10 text-accent-dim dark:text-accent">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" class="h-5 w-5">
+                <path d={icons[i % icons.length]} stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </div>
+            <h3 class="mt-4 text-lg font-semibold text-ink-900 dark:text-ink-100">{service.title}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-ink-400">{service.description}</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

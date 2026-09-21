@@ -1,0 +1,32 @@
+---
+import { person } from "@/data/content";
+
+const year = new Date().getFullYear();
+
+const socials = [
+  { label: "GitHub", href: person.links.github },
+  { label: "Upwork", href: person.links.upwork },
+  { label: "LinkedIn", href: person.links.linkedin },
+];
+---
+
+<footer class="border-t border-ink-100/80 py-10 dark:border-ink-700/60">
+  <div class="section-shell flex flex-col items-center justify-between gap-4 sm:flex-row">
+    <p class="font-mono text-xs text-ink-400">© {year} {person.name}. Built with Astro & Tailwind.</p>
+
+    <div class="flex items-center gap-5">
+      {
+        socials.map((social) => (
+          <a
+            href={social.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-sm font-medium text-ink-400 transition-colors hover:text-accent-dim dark:hover:text-accent"
+          >
+            {social.label}
+          </a>
+        ))
+      }
+    </div>
+  </div>
+</footer>
