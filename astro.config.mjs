@@ -5,4 +5,9 @@ import sitemap from "@astrojs/sitemap";
 export default defineConfig({
   site: "https://firasjamli.dev",
   integrations: [tailwind({ applyBaseStyles: false }), sitemap()],
+  vite: {
+    preview: {
+      allowedHosts: [".up.railway.app"],
+    },
+  },
 });
