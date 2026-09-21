@@ -1,0 +1,90 @@
+---
+import "@/styles/global.css";
+import { site, person } from "@/data/content";
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title = site.title, description = site.description } = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, site.url);
+const ogImageURL = new URL(site.ogImage, site.url);
+
+const personSchema = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: person.name,
+  alternateName: person.legalName,
+  jobTitle: person.role,
+  email: `mailto:${person.email}`,
+  url: site.url,
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Sousse",
+    addressCountry: "TN",
+  },
+  knowsLanguage: ["Arabic", "English"],
+  sameAs: [person.links.github, person.links.upwork, person.links.linkedin],
+};
+---
+
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <title>{title}</title>
+    <meta name="title" content={title} />
+    <meta name="description" content={description} />
+    <meta name="author" content={person.name} />
+    <link rel="canonical" href={canonicalURL} />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImageURL} />
+    <meta property="og:locale" content={site.locale} />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content={canonicalURL} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageURL} />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <script type="application/ld+json" set:html={JSON.stringify(personSchema)} />
+
+    <script is:inline>
+      // Runs before paint to avoid a light/dark flash. Reads a saved
+      // preference first, then falls back to the OS-level setting.
+      (function () {
+        const stored = localStorage.getItem("theme");
+        const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+        const isDark = stored ? stored === "dark" : prefersDark;
+        document.documentElement.classList.toggle("dark", isDark);
+      })();
+    </script>
+  </head>
+  <body class="relative min-h-screen overflow-x-hidden">
+    <div
+      class="pointer-events-none fixed inset-0 -z-10 bg-grid-light bg-grid opacity-60 [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_10%,transparent_70%)] dark:bg-grid-dark"
+    >
+    </div>
+    <slot />
+  </body>
+</html>
