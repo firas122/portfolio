@@ -128,6 +128,15 @@ export const projects: Project[] = [
   },
 ];
 
+export const testimonial = {
+  quote:
+    "Firas is an exemplary project leader who can assist with any technical task you might need help with. We would gladly recommend him for any opening he is interested in.",
+  rating: 5,
+  source: "Upwork Client",
+  context: "PDF extraction & JSON templating project · 6,500+ hours delivered",
+  link: person.links.upwork,
+};
+
 export type Experience = {
   role: string;
   company: string;
