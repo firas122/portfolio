@@ -21,13 +21,11 @@ export const person = {
   location: "Sousse, Tunisia",
   locationNote: "Available for remote / international freelance work, and open to new roles.",
   languages: ["Arabic (native)", "English (fluent)"],
-  // TODO: replace with your real email if different from your account email.
-  email: "firas122@outlook.fr",
+  email: "firas.dev@gmail.com",
   links: {
     github: "https://github.com/firas122",
     upwork: "https://www.upwork.com/freelancers/~0114e5ec94e78abcbd",
-    // TODO: replace with your real LinkedIn profile URL.
-    linkedin: "https://www.linkedin.com/in/firas-jamli",
+    linkedin: "https://www.linkedin.com/in/firas-jamli-1993b542a/",
   },
 };
 
