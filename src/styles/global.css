@@ -75,4 +75,27 @@
   .glow-border:hover::before {
     opacity: 1;
   }
+
+  .portrait-ring {
+    position: relative;
+  }
+
+  .portrait-ring::before {
+    content: "";
+    position: absolute;
+    inset: -8px;
+    border-radius: 9999px;
+    padding: 3px;
+    background: linear-gradient(135deg, theme("colors.accent.DEFAULT"), transparent 70%);
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+    opacity: 0.85;
+    transition: opacity 0.3s ease;
+  }
+
+  .portrait-ring:hover::before {
+    opacity: 1;
+  }
 }

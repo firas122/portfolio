@@ -27,32 +27,32 @@ const profileImages = import.meta.glob<{ default: ImageMetadata }>(
 const profileImage = Object.values(profileImages)[0]?.default;
 ---
 
-<div
-  class={`relative shrink-0 overflow-hidden rounded-full ring-2 ring-accent ring-offset-4 ring-offset-ink-50 transition-transform duration-300 hover:scale-[1.03] hover:ring-accent-bright dark:ring-offset-ink-950 ${sizeClass}`}
->
-  {
-    profileImage ? (
-      <Picture
-        src={profileImage}
-        formats={["avif", "webp"]}
-        fallbackFormat="jpg"
-        width={800}
-        height={800}
-        quality={68}
-        alt="Portrait of Firas Jamli"
-        loading={loading}
-        fetchpriority={fetchpriority}
-        decoding={loading === "eager" ? "sync" : "async"}
-        class="h-full w-full object-cover"
-      />
-    ) : (
-      <div
-        class={`flex h-full w-full items-center justify-center bg-accent/15 font-mono font-bold text-accent-dim dark:text-accent ${placeholderClass}`}
-        role="img"
-        aria-label="Portrait of Firas Jamli"
-      >
-        FJ
-      </div>
-    )
-  }
+<div class={`portrait-ring relative shrink-0 rounded-full transition-transform duration-300 hover:scale-[1.03] ${sizeClass}`}>
+  <div class="h-full w-full overflow-hidden rounded-full">
+    {
+      profileImage ? (
+        <Picture
+          src={profileImage}
+          formats={["avif", "webp"]}
+          fallbackFormat="jpg"
+          width={800}
+          height={800}
+          quality={68}
+          alt="Portrait of Firas Jamli"
+          loading={loading}
+          fetchpriority={fetchpriority}
+          decoding={loading === "eager" ? "sync" : "async"}
+          class="h-full w-full object-cover"
+        />
+      ) : (
+        <div
+          class={`flex h-full w-full items-center justify-center bg-accent/15 font-mono font-bold text-accent-dim dark:text-accent ${placeholderClass}`}
+          role="img"
+          aria-label="Portrait of Firas Jamli"
+        >
+          FJ
+        </div>
+      )
+    }
+  </div>
 </div>
