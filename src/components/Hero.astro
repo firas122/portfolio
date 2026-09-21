@@ -1,10 +1,17 @@
 ---
 import { hero, person } from "@/data/content";
 import DocToJson from "@/components/DocToJson.astro";
+import Portrait from "@/components/Portrait.astro";
 ---
 
 <section id="top" class="section-shell relative flex flex-col gap-16 pb-24 pt-16 sm:pt-24 lg:flex-row lg:items-center lg:gap-12 lg:pb-32 lg:pt-28">
   <div class="max-w-xl animate-fade-up">
+    <Portrait
+      class="mx-auto mb-6 h-40 w-40 lg:mx-0 lg:h-[340px] lg:w-[340px]"
+      placeholderClass="text-5xl lg:text-8xl"
+      loading="eager"
+      fetchpriority="high"
+    />
     <p class="section-heading">{hero.eyebrow}</p>
     <h1 class="mt-4 text-4xl font-extrabold leading-[1.1] tracking-tight text-ink-900 sm:text-5xl lg:text-[3.25rem] dark:text-ink-100">
       {hero.headline}

@@ -1,5 +1,6 @@
 ---
 import { about, person } from "@/data/content";
+import Portrait from "@/components/Portrait.astro";
 ---
 
 <section id="about" class="section-shell py-20 sm:py-28">
@@ -11,23 +12,27 @@ import { about, person } from "@/data/content";
       </h2>
     </div>
 
-    <div class="space-y-5">
-      {
-        about.paragraphs.map((paragraph) => (
-          <p class="text-base leading-relaxed text-ink-400 sm:text-lg">{paragraph}</p>
-        ))
-      }
+    <div class="flex flex-col gap-6 sm:flex-row sm:items-start">
+      <Portrait class="mx-auto h-[200px] w-[200px] sm:mx-0" placeholderClass="text-6xl" loading="lazy" />
 
-      <dl class="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2">
-        <div class="panel rounded-xl p-4">
-          <dt class="font-mono text-xs uppercase tracking-widest text-accent-dim dark:text-accent">Based in</dt>
-          <dd class="mt-1 text-sm text-ink-900 dark:text-ink-100">{person.location}</dd>
-        </div>
-        <div class="panel rounded-xl p-4">
-          <dt class="font-mono text-xs uppercase tracking-widest text-accent-dim dark:text-accent">Languages</dt>
-          <dd class="mt-1 text-sm text-ink-900 dark:text-ink-100">{person.languages.join(" · ")}</dd>
-        </div>
-      </dl>
+      <div class="flex-1 space-y-5">
+        {
+          about.paragraphs.map((paragraph) => (
+            <p class="text-base leading-relaxed text-ink-400 sm:text-lg">{paragraph}</p>
+          ))
+        }
+
+        <dl class="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <div class="panel rounded-xl p-4">
+            <dt class="font-mono text-xs uppercase tracking-widest text-accent-dim dark:text-accent">Based in</dt>
+            <dd class="mt-1 text-sm text-ink-900 dark:text-ink-100">{person.location}</dd>
+          </div>
+          <div class="panel rounded-xl p-4">
+            <dt class="font-mono text-xs uppercase tracking-widest text-accent-dim dark:text-accent">Languages</dt>
+            <dd class="mt-1 text-sm text-ink-900 dark:text-ink-100">{person.languages.join(" · ")}</dd>
+          </div>
+        </dl>
+      </div>
     </div>
   </div>
 </section>

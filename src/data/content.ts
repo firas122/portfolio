@@ -7,9 +7,7 @@ export const site = {
     "Firas Jamli is an IT engineer specialized in Intelligent Document Processing (IDP) and Python development, turning messy PDFs, scans, and forms into clean structured data.",
   // TODO: replace with your real production domain before deploying.
   url: "https://firasjamli.dev",
-  // TODO: SVG works as a fallback, but for best compatibility with
-  // Facebook/LinkedIn/Twitter crawlers, export this as a 1200x630 PNG.
-  ogImage: "/og-image.svg",
+  ogImage: "/og-image.jpg",
   locale: "en_US",
 };
 

@@ -1,0 +1,58 @@
+---
+import { Picture } from "astro:assets";
+import type { ImageMetadata } from "astro";
+
+interface Props {
+  /** Tailwind sizing classes (h-*, w-*) — controls the rendered box size. */
+  class: string;
+  /** Tailwind text-size class for the initials placeholder fallback. */
+  placeholderClass?: string;
+  loading?: "eager" | "lazy";
+  fetchpriority?: "high" | "low" | "auto";
+}
+
+const {
+  class: sizeClass,
+  placeholderClass = "text-4xl",
+  loading = "lazy",
+  fetchpriority = "auto",
+} = Astro.props;
+
+// Optional local asset: resolved via glob so a missing photo can't break the
+// build. Matches whatever extension the file actually has.
+const profileImages = import.meta.glob<{ default: ImageMetadata }>(
+  "/src/assets/profile.{jpg,jpeg,png,webp}",
+  { eager: true },
+);
+const profileImage = Object.values(profileImages)[0]?.default;
+---
+
+<div
+  class={`relative shrink-0 overflow-hidden rounded-full ring-2 ring-accent ring-offset-4 ring-offset-ink-50 transition-transform duration-300 hover:scale-[1.03] hover:ring-accent-bright dark:ring-offset-ink-950 ${sizeClass}`}
+>
+  {
+    profileImage ? (
+      <Picture
+        src={profileImage}
+        formats={["avif", "webp"]}
+        fallbackFormat="jpg"
+        width={800}
+        height={800}
+        quality={68}
+        alt="Portrait of Firas Jamli"
+        loading={loading}
+        fetchpriority={fetchpriority}
+        decoding={loading === "eager" ? "sync" : "async"}
+        class="h-full w-full object-cover"
+      />
+    ) : (
+      <div
+        class={`flex h-full w-full items-center justify-center bg-accent/15 font-mono font-bold text-accent-dim dark:text-accent ${placeholderClass}`}
+        role="img"
+        aria-label="Portrait of Firas Jamli"
+      >
+        FJ
+      </div>
+    )
+  }
+</div>

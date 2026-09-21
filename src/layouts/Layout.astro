@@ -1,4 +1,6 @@
 ---
+import { getImage } from "astro:assets";
+import type { ImageMetadata } from "astro";
 import "@/styles/global.css";
 import { site, person } from "@/data/content";
 
@@ -12,6 +14,20 @@ const { title = site.title, description = site.description } = Astro.props;
 const canonicalURL = new URL(Astro.url.pathname, site.url);
 const ogImageURL = new URL(site.ogImage, site.url);
 
+// Optional local asset: resolved via glob so a missing photo can't break the
+// build (see also src/components/Portrait.astro).
+const profileImages = import.meta.glob<{ default: ImageMetadata }>(
+  "/src/assets/profile.{jpg,jpeg,png,webp}",
+  { eager: true },
+);
+const profileImageMeta = Object.values(profileImages)[0]?.default;
+const personImageURL = profileImageMeta
+  ? new URL(
+      (await getImage({ src: profileImageMeta, width: 800, height: 800, format: "jpg" })).src,
+      site.url,
+    )
+  : undefined;
+
 const personSchema = {
   "@context": "https://schema.org",
   "@type": "Person",
@@ -20,6 +36,7 @@ const personSchema = {
   jobTitle: person.role,
   email: `mailto:${person.email}`,
   url: site.url,
+  ...(personImageURL ? { image: personImageURL.toString() } : {}),
   address: {
     "@type": "PostalAddress",
     addressLocality: "Sousse",
