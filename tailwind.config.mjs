@@ -6,19 +6,19 @@ export default {
     extend: {
       colors: {
         accent: {
-          DEFAULT: "#4dd4c9",
-          dim: "#2fa89e",
-          bright: "#7ce8de",
+          DEFAULT: "#8b7cf6",
+          dim: "#6d5cd6",
+          bright: "#b3a8ff",
         },
         ink: {
-          950: "#05070a",
-          900: "#0a0e14",
-          800: "#0f1520",
-          700: "#161e2c",
-          600: "#232f42",
-          400: "#5b6b85",
-          200: "#c3ccdb",
-          100: "#e6eaf2",
+          950: "#0a0713",
+          900: "#120e1f",
+          800: "#181329",
+          700: "#221b38",
+          600: "#332a4d",
+          400: "#6c6389",
+          200: "#cec7e0",
+          100: "#ede9f7",
         },
       },
       fontFamily: {
@@ -39,9 +39,9 @@ export default {
       },
       backgroundImage: {
         "grid-light":
-          "linear-gradient(to right, rgba(15,21,32,0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(15,21,32,0.05) 1px, transparent 1px)",
+          "linear-gradient(to right, rgba(18,14,31,0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(18,14,31,0.05) 1px, transparent 1px)",
         "grid-dark":
-          "linear-gradient(to right, rgba(230,234,242,0.06) 1px, transparent 1px), linear-gradient(to bottom, rgba(230,234,242,0.06) 1px, transparent 1px)",
+          "linear-gradient(to right, rgba(237,233,247,0.06) 1px, transparent 1px), linear-gradient(to bottom, rgba(237,233,247,0.06) 1px, transparent 1px)",
       },
       backgroundSize: {
         grid: "32px 32px",
