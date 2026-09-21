@@ -35,7 +35,7 @@ import { projects } from "@/data/content";
             </p>
           </div>
 
-          <div class="mt-5 flex flex-wrap gap-1.5">
+          <div class="mt-auto flex flex-wrap gap-1.5 pt-5">
             {project.stack.map((tech) => (
               <span class="rounded-md bg-ink-100/80 px-2 py-1 font-mono text-[11px] text-ink-400 dark:bg-ink-800 dark:text-ink-200">
                 {tech}
@@ -48,7 +48,7 @@ import { projects } from "@/data/content";
               href={project.link.href}
               target="_blank"
               rel="noopener noreferrer"
-              class="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-accent-dim hover:text-accent-bright dark:text-accent"
+              class="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-accent-dim hover:text-accent-bright dark:text-accent"
             >
               {project.link.label}
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="h-3.5 w-3.5">
