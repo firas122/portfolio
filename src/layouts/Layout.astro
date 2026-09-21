@@ -88,11 +88,10 @@ const personSchema = {
 
     <script is:inline>
       // Runs before paint to avoid a light/dark flash. Reads a saved
-      // preference first, then falls back to the OS-level setting.
+      // preference first, then defaults to dark mode (not the OS setting).
       (function () {
         const stored = localStorage.getItem("theme");
-        const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-        const isDark = stored ? stored === "dark" : prefersDark;
+        const isDark = stored ? stored === "dark" : true;
         document.documentElement.classList.toggle("dark", isDark);
       })();
     </script>
