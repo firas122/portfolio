@@ -219,6 +219,5 @@ export const fr: typeof en = {
     menuToggle: "Ouvrir/fermer le menu",
     contactCta: "Contact",
     portraitAlt: "Portrait de Firas Jamli",
-    switchLanguageTo: "English",
   },
 };

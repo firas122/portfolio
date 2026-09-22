@@ -250,6 +250,5 @@ export const en = {
     menuToggle: "Toggle menu",
     contactCta: "Contact",
     portraitAlt: "Portrait of Firas Jamli",
-    switchLanguageTo: "Français",
   },
 };
