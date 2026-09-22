@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "dev": "astro dev",
-    "start": "serve -s dist -l tcp://0.0.0.0:${PORT:-4321}",
+    "start": "serve dist -l tcp://0.0.0.0:${PORT:-4321}",
     "build": "astro check && astro build",
     "preview": "astro preview",
     "astro": "astro",
