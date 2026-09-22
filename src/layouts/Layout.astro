@@ -1,18 +1,28 @@
 ---
 import { getImage } from "astro:assets";
+import { getAbsoluteLocaleUrl } from "astro:i18n";
 import type { ImageMetadata } from "astro";
 import "@/styles/global.css";
-import { site, person } from "@/data/content";
+import { getContent, locales } from "@/i18n";
 
 interface Props {
   title?: string;
   description?: string;
 }
 
+const lang = Astro.currentLocale ?? "en";
+const { site, person } = getContent(lang);
+
 const { title = site.title, description = site.description } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, site.url);
 const ogImageURL = new URL(site.ogImage, site.url);
+
+const localePathname = Astro.url.pathname.replace(/^\/fr(\/|$)/, "/");
+const alternateLinks = locales.map((locale) => ({
+  locale,
+  href: getAbsoluteLocaleUrl(locale, localePathname),
+}));
 
 // Optional local asset: resolved via glob so a missing photo can't break the
 // build (see also src/components/Portrait.astro).
@@ -48,7 +58,7 @@ const personSchema = {
 ---
 
 <!doctype html>
-<html lang="en" class="scroll-smooth">
+<html lang={lang} class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -60,6 +70,12 @@ const personSchema = {
     <meta name="author" content={person.name} />
     <link rel="canonical" href={canonicalURL} />
     <link rel="sitemap" href="/sitemap-index.xml" />
+    {
+      alternateLinks.map((alt) => (
+        <link rel="alternate" hreflang={alt.locale} href={alt.href} />
+      ))
+    }
+    <link rel="alternate" hreflang="x-default" href={getAbsoluteLocaleUrl("en", localePathname)} />
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />

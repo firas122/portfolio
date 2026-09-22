@@ -1,17 +1,20 @@
 ---
-import { experience } from "@/data/content";
+import { getContent } from "@/i18n";
+
+const lang = Astro.currentLocale ?? "en";
+const { experience } = getContent(lang);
 ---
 
 <section id="experience" class="border-y border-ink-200/70 bg-ink-100/50 py-20 sm:py-28 dark:border-ink-700/60 dark:bg-ink-900/40">
   <div class="section-shell">
-    <p class="section-heading">Experience</p>
+    <p class="section-heading">{experience.heading}</p>
     <h2 class="mt-3 max-w-xl text-3xl font-bold tracking-tight text-ink-900 sm:text-4xl dark:text-ink-100">
-      Where I've built this.
+      {experience.subheading}
     </h2>
 
     <ol class="mt-12 max-w-3xl space-y-8 border-l border-ink-200 pl-8 dark:border-ink-700">
       {
-        experience.map((job) => (
+        experience.items.map((job) => (
           <li class="relative">
             <span class="absolute -left-[calc(2rem+5px)] top-1.5 h-2.5 w-2.5 rounded-full bg-accent ring-4 ring-ink-50 dark:ring-ink-950" />
             <div class="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between">

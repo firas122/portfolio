@@ -1,11 +1,14 @@
 ---
-import { testimonial } from "@/data/content";
+import { getContent } from "@/i18n";
+
+const lang = Astro.currentLocale ?? "en";
+const { testimonial, person } = getContent(lang);
 ---
 
 <section id="testimonial" class="section-shell py-20 sm:py-28">
-  <p class="section-heading">Client feedback</p>
+  <p class="section-heading">{testimonial.eyebrow}</p>
   <h2 class="mt-3 max-w-xl text-3xl font-bold tracking-tight text-ink-900 sm:text-4xl dark:text-ink-100">
-    What clients say.
+    {testimonial.heading}
   </h2>
 
   <figure class="panel glow-border relative mt-12 max-w-3xl rounded-2xl p-8 sm:p-10">
@@ -25,7 +28,7 @@ import { testimonial } from "@/data/content";
 
     <figcaption class="mt-6 flex flex-wrap items-center justify-between gap-4 border-t border-ink-200/70 pt-5 dark:border-ink-700/60">
       <div>
-        <div class="flex items-center gap-1 text-accent" aria-label={`Rated ${testimonial.rating} out of 5 stars`}>
+        <div class="flex items-center gap-1 text-accent" aria-label={testimonial.ratedOutOf5(testimonial.rating)}>
           {
             Array.from({ length: 5 }).map((_, i) => (
               <svg
@@ -44,14 +47,14 @@ import { testimonial } from "@/data/content";
         </div>
         <p class="mt-2 text-sm font-semibold text-ink-900 dark:text-ink-100">
           <a
-            href={testimonial.link}
+            href={person.links.upwork}
             target="_blank"
             rel="noopener noreferrer"
             class="underline decoration-ink-200 underline-offset-4 hover:text-accent-dim dark:decoration-ink-700 dark:hover:text-accent"
           >
             {testimonial.source}
           </a>
-          <span class="font-normal text-ink-400"> · Verified on Upwork</span>
+          <span class="font-normal text-ink-400"> · {testimonial.verifiedOn}</span>
         </p>
         <p class="mt-0.5 text-xs text-ink-400">{testimonial.context}</p>
       </div>

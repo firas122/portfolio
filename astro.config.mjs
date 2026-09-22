@@ -5,4 +5,11 @@ import sitemap from "@astrojs/sitemap";
 export default defineConfig({
   site: "https://firasjamli.dev",
   integrations: [tailwind({ applyBaseStyles: false }), sitemap()],
+  i18n: {
+    defaultLocale: "en",
+    locales: ["en", "fr"],
+    routing: {
+      prefixDefaultLocale: false,
+    },
+  },
 });

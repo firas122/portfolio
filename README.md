@@ -27,25 +27,46 @@ npm run preview    # serve the production build locally
 
 ## Editing content
 
-**Every piece of copy on the site lives in one file: `src/data/content.ts`.**
-Name, bio, services, projects, experience, skills, links, contact text — all of it.
-You should not need to touch any `.astro` component to update text; components only
-read from this file and render it.
+**Every piece of copy on the site lives in `src/i18n/en.ts` (English) and
+`src/i18n/fr.ts` (French).** Name, bio, services, projects, experience, skills, links,
+contact text, nav labels, form labels — all of it. You should not need to touch any
+`.astro` component to update text; components call `getContent(lang)` from `src/i18n`
+and render whatever it returns.
 
-Sections in `content.ts`:
+`fr.ts` is typed as `typeof en`, so TypeScript will error if a key is missing when you
+add new copy — always update both files together.
 
-| Export | Controls |
+Sections in each locale file:
+
+| Key | Controls |
 |---|---|
-| `site` | Page `<title>`, meta description, canonical URL, OG image |
-| `person` | Name, role, location, email, GitHub/Upwork/LinkedIn links |
+| `site` | Page `<title>`, meta description, canonical URL, OG image, `og:locale` |
+| `person` | Name, role, location, email, GitHub/Upwork/LinkedIn links, spoken languages |
 | `nav` | Sticky nav links |
 | `hero` | Headline, subheading, CTA buttons |
-| `about` | About section paragraphs |
+| `about` | About section heading/subheading/paragraphs, "Based in"/"Languages" labels |
 | `services` | Services grid (title + description) |
 | `projects` | Case-study cards (problem/approach/stack/outcome/link) |
+| `testimonial` | Client quote, rating, source |
 | `experience` | Timeline of roles |
 | `skills` | Skill groups |
-| `contact` | Contact section heading/body, Formspree form ID |
+| `contact` | Contact section heading/body, form labels, Formspree form ID |
+| `footer` | Copyright line |
+| `ui` | Misc shared strings (aria-labels, portrait alt text, language switcher) |
+
+### Languages / i18n
+
+The site is served at `/` (English, default) and `/fr/` (French), using Astro's
+built-in i18n routing (see `i18n` in `astro.config.mjs`). `src/pages/index.astro` and
+`src/pages/fr/index.astro` render the identical component tree — each component reads
+`Astro.currentLocale` and pulls the matching dictionary via `getContent()`, so there's
+no duplicated markup. The nav includes an EN/FR switcher (`getRelativeLocaleUrl`) and
+`Layout.astro` emits `hreflang` alternate links for both locales plus `x-default`.
+
+To add another language: create `src/i18n/<code>.ts` typed as `typeof en` (translate
+every field), add it to `dictionaries` in `src/i18n/index.ts`, add `<code>` to
+`locales` in `src/i18n/config.ts` and to the `i18n.locales` array in
+`astro.config.mjs`, and add `src/pages/<code>/index.astro` (copy `src/pages/fr/index.astro`).
 
 The hero's "messy document → structured JSON" visual is pure CSS/SVG in
 `src/components/DocToJson.astro` — no image assets involved. Its sample JSON fields
@@ -70,18 +91,20 @@ questions:
   `scripts/generate-og-image.mjs` from `src/assets/profile.*` — composites the portrait,
   name, and title onto the site's dark/violet branding via `sharp`. Re-run
   `npm run og:generate` whenever the source photo changes.
-- **Arabic/RTL**: not built out (kept as a "structure ready for later" per the brief,
-  not implemented now). The content model (`content.ts`) is a plain object, so adding
-  an `ar` locale file and an `[lang]` route later is straightforward, but no i18n
-  routing exists yet.
+- **French translation**: added via Astro's built-in i18n routing (`/` for English,
+  `/fr/` for French) — see the "Languages / i18n" section above.
+- **Arabic/RTL**: not built out (kept as a "structure ready for later", not implemented
+  now). Adding an `ar` locale file follows the same pattern as `fr.ts`, but RTL layout
+  (`dir="rtl"`, mirrored spacing/icons) would need its own pass since the current CSS
+  assumes LTR.
 - Removed the placeholder PyCharm scaffold (`main.py`, `.venv`) that was in the
   otherwise-empty project folder — it was IDE boilerplate, not project content.
 
 ## Placeholders you still need to fill in
 
-1. **LinkedIn URL** — `person.links.linkedin` in `src/data/content.ts` currently points
-   to a placeholder (`https://www.linkedin.com/in/firas-jamli`). Replace with your real
-   profile URL.
+1. **LinkedIn URL** — `person.links.linkedin` in `src/i18n/en.ts` and `src/i18n/fr.ts`
+   currently points to a placeholder (`https://www.linkedin.com/in/firas-jamli`).
+   Replace with your real profile URL in both files.
 2. **Formspree form ID** — create a form at [formspree.io](https://formspree.io), then
    either:
    - copy `.env.example` to `.env` and set `PUBLIC_FORMSPREE_ID=your_id`, or
@@ -89,16 +112,18 @@ questions:
      (Vercel/Netlify/GitHub Actions).
    Until set, the form action falls back to the literal string `YOUR_FORMSPREE_ID` and
    will not submit anywhere.
-3. **Production domain** — `site.url` in `src/data/content.ts` and `site` in
-   `astro.config.mjs` are set to `https://firasjamli.dev` as a placeholder. Update both
-   to your real domain (used for canonical URLs, OG tags, and the sitemap).
+3. **Production domain** — `site.url` in `src/i18n/en.ts`/`src/i18n/fr.ts` and `site` in
+   `astro.config.mjs` are set to `https://firasjamli.dev` as a placeholder. Update all
+   three to your real domain (used for canonical URLs, OG tags, hreflang links, and the
+   sitemap).
 4. **OG image** — `public/og-image.jpg` is generated from `src/assets/profile.*` (see
    above). Re-run `npm run og:generate` after changing the source photo or the
    `NAME`/`TITLE_LINES`/`TAGLINE` constants in `scripts/generate-og-image.mjs`.
 5. **Email address** — currently set to `firas122@outlook.fr` in `person.email`.
    Update if you'd rather use a different address for client inquiries.
 6. **A 4th project** (optional) — the brief left a slot open for an additional project.
-   Add another entry to the `projects` array in `content.ts` if you want one.
+   Add another entry to `projects.items` in both `src/i18n/en.ts` and `src/i18n/fr.ts`
+   if you want one.
 
 ## Deploying
 
@@ -127,12 +152,17 @@ questions:
 ```
 src/
   components/     UI sections (Hero, About, Services, Projects, Experience, Skills, Contact, Nav, Footer)
-  data/
-    content.ts    All editable site copy — edit this, not the components
+  i18n/
+    en.ts         English site copy — edit this, not the components
+    fr.ts         French site copy, typed as typeof en
+    config.ts     Supported locales + default locale
+    index.ts      getContent(lang) dictionary lookup used by components
   layouts/
-    Layout.astro  <head> meta tags, OG tags, JSON-LD, theme flash-prevention script
+    Layout.astro  <head> meta tags, OG tags, JSON-LD, hreflang alternates, theme flash-prevention script
   pages/
-    index.astro   Assembles the single page from the components above
+    index.astro   English page — assembles the single page from the components above
+    fr/
+      index.astro Same component tree, rendered at /fr/
   styles/
     global.css    Tailwind layers + a couple of shared utility classes (panel, glow-border)
 public/

@@ -1,5 +1,8 @@
 ---
-import { services } from "@/data/content";
+import { getContent } from "@/i18n";
+
+const lang = Astro.currentLocale ?? "en";
+const { services } = getContent(lang);
 
 const icons = [
   // document
@@ -15,14 +18,14 @@ const icons = [
 
 <section id="services" class="border-y border-ink-200/70 bg-ink-100/50 py-20 sm:py-28 dark:border-ink-700/60 dark:bg-ink-900/40">
   <div class="section-shell">
-    <p class="section-heading">Services</p>
+    <p class="section-heading">{services.heading}</p>
     <h2 class="mt-3 max-w-xl text-3xl font-bold tracking-tight text-ink-900 sm:text-4xl dark:text-ink-100">
-      What I can do for your documents.
+      {services.subheading}
     </h2>
 
     <div class="mt-12 grid grid-cols-1 gap-5 sm:grid-cols-2">
       {
-        services.map((service, i) => (
+        services.items.map((service, i) => (
           <div class="panel glow-border group relative overflow-hidden rounded-2xl p-6 transition-transform hover:-translate-y-1">
             <div class="flex h-11 w-11 items-center justify-center rounded-xl border border-accent/30 bg-accent/10 text-accent-dim dark:text-accent">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" class="h-5 w-5">

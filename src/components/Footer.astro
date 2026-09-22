@@ -1,5 +1,8 @@
 ---
-import { person } from "@/data/content";
+import { getContent } from "@/i18n";
+
+const lang = Astro.currentLocale ?? "en";
+const { person, footer } = getContent(lang);
 
 const year = new Date().getFullYear();
 
@@ -12,7 +15,7 @@ const socials = [
 
 <footer class="border-t border-ink-200/70 py-10 dark:border-ink-700/60">
   <div class="section-shell flex flex-col items-center justify-between gap-4 sm:flex-row">
-    <p class="font-mono text-xs text-ink-400">© {year} {person.name}. Built with Astro & Tailwind.</p>
+    <p class="font-mono text-xs text-ink-400">{footer.builtWith(year, person.name)}</p>
 
     <div class="flex items-center gap-5">
       {

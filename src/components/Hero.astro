@@ -1,7 +1,10 @@
 ---
-import { hero, person } from "@/data/content";
+import { getContent } from "@/i18n";
 import DocToJson from "@/components/DocToJson.astro";
 import Portrait from "@/components/Portrait.astro";
+
+const lang = Astro.currentLocale ?? "en";
+const { hero, person } = getContent(lang);
 ---
 
 <section id="top" class="section-shell relative flex flex-col gap-16 pb-24 pt-16 sm:pt-24 lg:flex-row lg:items-start lg:gap-12 lg:pb-32 lg:pt-28">
@@ -36,7 +39,7 @@ import Portrait from "@/components/Portrait.astro";
         </svg>
       </a>
       <a
-        href={hero.ctaSecondary.href}
+        href={person.links.upwork}
         target="_blank"
         rel="noopener noreferrer"
         class="inline-flex items-center gap-2 rounded-full border border-ink-200 px-5 py-3 text-sm font-semibold text-ink-900 transition-colors hover:border-accent/50 hover:text-accent-dim dark:border-ink-700 dark:text-ink-100 dark:hover:text-accent"
