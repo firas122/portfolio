@@ -155,7 +155,7 @@ export const experience: Experience[] = [
   {
     role: "Project Manager / Developer",
     company: "Shopium",
-    period: "Nov 2022 – Nov 2023 · Full-time",
+    period: "Oct 2021 – Nov 2022 · Full-time",
     description: "Mobile and backend development.",
   },
   {
