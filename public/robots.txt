@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://firasjamli.dev/sitemap-index.xml
+Sitemap: https://portfolio-firas-jamli.up.railway.app/sitemap-index.xml

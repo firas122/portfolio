@@ -6,7 +6,7 @@ export const fr: typeof en = {
     title: "Firas Jamli — Spécialiste en traitement intelligent de documents et extraction de données",
     description:
       "Firas Jamli est un ingénieur informatique spécialisé dans le traitement intelligent de documents (IDP) et le développement Python, transformant des PDF, scans et formulaires désordonnés en données structurées et exploitables.",
-    url: "https://firasjamli.dev",
+    url: "https://portfolio-firas-jamli.up.railway.app",
     ogImage: "/og-image.jpg",
     locale: "fr_FR",
   },
@@ -20,7 +20,7 @@ export const fr: typeof en = {
     locationNote:
       "Disponible pour du travail freelance à distance / international, et ouvert à de nouvelles opportunités.",
     languages: ["Arabe (langue maternelle)", "Anglais (courant)"],
-    email: "firas.dev@gmail.com",
+    email: "firas.jamli.dev@gmail.com",
     links: {
       github: "https://github.com/firas122",
       upwork: "https://www.upwork.com/freelancers/~0114e5ec94e78abcbd",

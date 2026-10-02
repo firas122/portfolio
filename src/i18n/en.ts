@@ -35,8 +35,7 @@ export const en = {
     title: "Firas Jamli — Intelligent Document Processing & Data Extraction Specialist",
     description:
       "Firas Jamli is an IT engineer specialized in Intelligent Document Processing (IDP) and Python development, turning messy PDFs, scans, and forms into clean structured data.",
-    // TODO: replace with your real production domain before deploying.
-    url: "https://firasjamli.dev",
+    url: "https://portfolio-firas-jamli.up.railway.app",
     ogImage: "/og-image.jpg",
     locale: "en_US",
   },
@@ -49,7 +48,7 @@ export const en = {
     location: "Sousse, Tunisia",
     locationNote: "Available for remote / international freelance work, and open to new roles.",
     languages: ["Arabic (native)", "English (fluent)"],
-    email: "firas.dev@gmail.com",
+    email: "firas.jamli.dev@gmail.com",
     links: {
       github: "https://github.com/firas122",
       upwork: "https://www.upwork.com/freelancers/~0114e5ec94e78abcbd",
