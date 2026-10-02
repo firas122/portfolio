@@ -227,17 +227,12 @@ export const en = {
     heading: "Let's talk about your documents",
     body: "Have a PDF, scan, or form you need turned into structured data? Send me a sample and a short description of what you need — I'll tell you honestly whether it's a good fit.",
     hireMeUpwork: "Hire me on Upwork",
-    form: {
-      nameLabel: "Name",
-      emailLabel: "Email",
-      messageLabel: "What do you need extracted?",
-      messagePlaceholder: "Describe your documents, or drop a link to a sample.",
-      submit: "Send message",
-      emailDirectPrefix: "Or just email me directly at",
+    direct: {
+      heading: "Write to me directly",
+      body: "Email is the fastest way to reach me. Tell me what you need extracted, and attach a sample document if you have one.",
+      mailSubject: "Document extraction enquiry",
+      elsewhere: "Elsewhere",
     },
-    // TODO: create a Formspree form at https://formspree.io and put its ID here,
-    // or set PUBLIC_FORMSPREE_ID as an environment variable at build time.
-    formspreeId: "YOUR_FORMSPREE_ID",
   },
 
   footer: {

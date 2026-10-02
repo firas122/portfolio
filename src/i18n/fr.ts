@@ -199,15 +199,12 @@ export const fr: typeof en = {
     heading: "Parlons de vos documents",
     body: "Vous avez un PDF, un scan ou un formulaire à transformer en données structurées ? Envoyez-moi un exemple et une courte description de votre besoin — je vous dirai honnêtement si c'est une bonne adéquation.",
     hireMeUpwork: "Recrutez-moi sur Upwork",
-    form: {
-      nameLabel: "Nom",
-      emailLabel: "Email",
-      messageLabel: "Qu'avez-vous besoin d'extraire ?",
-      messagePlaceholder: "Décrivez vos documents, ou déposez un lien vers un exemple.",
-      submit: "Envoyer le message",
-      emailDirectPrefix: "Ou écrivez-moi directement à",
+    direct: {
+      heading: "Écrivez-moi directement",
+      body: "L'email est le moyen le plus rapide de me joindre. Dites-moi ce que vous avez besoin d'extraire, et joignez un document d'exemple si vous en avez un.",
+      mailSubject: "Demande d'extraction de documents",
+      elsewhere: "Ailleurs",
     },
-    formspreeId: "YOUR_FORMSPREE_ID",
   },
 
   footer: {
