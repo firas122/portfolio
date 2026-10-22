@@ -18,10 +18,10 @@ const langOptions = locales.map((locale) => ({
       <span class="flex h-7 w-7 items-center justify-center rounded-md border border-accent/40 bg-accent/10 text-accent-dim transition-colors group-hover:bg-accent/20 dark:text-accent">
         FJ
       </span>
-      <span class="hidden sm:inline">{person.name}</span>
+      <span class="hidden whitespace-nowrap sm:inline">{person.name}</span>
     </a>
 
-    <nav class="hidden items-center gap-8 md:flex">
+    <nav class="hidden items-center gap-8 lg:flex">
       {
         nav.map((item) => (
           <a
@@ -101,7 +101,7 @@ const langOptions = locales.map((locale) => ({
 
       <a
         href="#contact"
-        class="hidden rounded-full bg-ink-900 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-accent-dim md:inline-flex dark:bg-accent dark:text-ink-950 dark:hover:bg-accent-bright"
+        class="hidden whitespace-nowrap rounded-full bg-ink-900 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-accent-dim lg:inline-flex dark:bg-accent dark:text-ink-950 dark:hover:bg-accent-bright"
       >
         {ui.contactCta}
       </a>
@@ -111,7 +111,7 @@ const langOptions = locales.map((locale) => ({
         type="button"
         aria-label={ui.menuToggle}
         aria-expanded="false"
-        class="flex h-9 w-9 items-center justify-center rounded-full border border-ink-200 text-ink-400 md:hidden dark:border-ink-700"
+        class="flex h-9 w-9 items-center justify-center rounded-full border border-ink-200 text-ink-400 lg:hidden dark:border-ink-700"
       >
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="h-4 w-4">
           <path d="M4 6h16M4 12h16M4 18h16"></path>
@@ -120,7 +120,7 @@ const langOptions = locales.map((locale) => ({
     </div>
   </div>
 
-  <nav id="mobile-menu" class="hidden border-t border-ink-200/70 px-6 pb-4 md:hidden dark:border-ink-700/60">
+  <nav id="mobile-menu" class="hidden border-t border-ink-200/70 px-6 pb-4 lg:hidden dark:border-ink-700/60">
     <ul class="flex flex-col gap-1 pt-2">
       {
         nav.map((item) => (

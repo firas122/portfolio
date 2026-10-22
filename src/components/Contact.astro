@@ -23,7 +23,7 @@ const elsewhere = [
       <p class="mt-4 max-w-md text-base leading-relaxed text-ink-400">{contact.body}</p>
     </div>
 
-    <div class="panel flex flex-col gap-6 rounded-2xl p-6">
+    <div class="panel flex min-w-0 flex-col gap-6 rounded-2xl p-6">
       <div>
         <h3 class="text-lg font-semibold text-ink-900 dark:text-ink-100">{contact.direct.heading}</h3>
         <p class="mt-2 text-sm leading-relaxed text-ink-400">{contact.direct.body}</p>
@@ -33,10 +33,10 @@ const elsewhere = [
         href={mailto}
         class="inline-flex w-fit items-center gap-2 rounded-full bg-ink-900 px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-accent-dim dark:bg-accent dark:text-ink-950 dark:hover:bg-accent-bright"
       >
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="h-4 w-4">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="h-4 w-4 shrink-0">
           <path d="M4 4h16v16H4zM22 6l-10 7L2 6" />
         </svg>
-        {person.email}
+        <span class="break-all">{person.email}</span>
       </a>
 
       <div class="border-t border-ink-200/70 pt-5 dark:border-ink-700/60">
