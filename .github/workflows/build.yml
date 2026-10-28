@@ -2,7 +2,11 @@ name: build
 
 on:
   push:
-    branches: [main]
+    # Both names on purpose. This repo's default is `master`, and the workflow
+    # watched `main` only -- so from the rename onward every push went green by
+    # never running. Listing both means a future rename cannot silently
+    # switch CI off again.
+    branches: [master, main]
   pull_request:
 
 jobs:
