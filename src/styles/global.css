@@ -2,49 +2,41 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ---------------------------------------------------------------------------
-   Theme tokens. Both themes are declared here and nowhere else; components
-   never name a literal colour, so a palette change is a change to this block.
-   Channels are unprefixed RGB so Tailwind's opacity modifiers keep working.
-   --------------------------------------------------------------------------- */
 @layer base {
+  /* Dark is the default register here — every reference site is dark — so the
+     dark values are the ones tuned, and light is a clean counterpart. */
   :root {
-    /* Light: a cool worktop, not paper. Gold darkens to bronze so it still
-       clears contrast on a pale ground — the same hue would be illegible. */
-    --bg: 244 246 249;
+    --bg: 248 250 253;
     --panel: 255 255 255;
-    --panel-raised: 248 250 252;
-    --panel-high: 239 243 248;
-    --edge: 218 225 234;
-    --edge-strong: 196 206 219;
-    --fg: 15 21 30;
-    --fg-muted: 84 99 118;
-    --fg-faint: 124 139 158;
-    --gold: 150 101 7;
-    --gold-bright: 184 126 16;
-    --gold-deep: 109 72 4;
-    --gold-on: 255 252 245;
-    --ember: 183 78 34;
-    --lamp: 240 180 41;
+    --panel-raised: 248 250 253;
+    --panel-high: 241 245 251;
+    --edge: 222 230 243;
+    --edge-strong: 197 209 229;
+    --fg: 13 19 37;
+    --fg-muted: 74 90 122;
+    --fg-faint: 111 127 160;
+    --brand: 37 99 235;
+    --brand-two: 124 58 237;
+    --brand-deep: 29 78 216;
+    --brand-on: 255 255 255;
+    --ok: 22 163 74;
   }
 
   .dark {
-    /* Dark: the table the document sits on. */
-    --bg: 6 8 12;
-    --panel: 12 16 23;
-    --panel-raised: 17 23 33;
-    --panel-high: 24 32 45;
-    --edge: 31 40 54;
-    --edge-strong: 48 61 79;
-    --fg: 233 238 246;
-    --fg-muted: 159 176 196;
-    --fg-faint: 106 122 142;
-    --gold: 240 180 41;
-    --gold-bright: 255 209 102;
-    --gold-deep: 176 125 16;
-    --gold-on: 36 26 6;
-    --ember: 232 112 58;
-    --lamp: 240 180 41;
+    --bg: 7 11 22;
+    --panel: 15 21 39;
+    --panel-raised: 20 28 51;
+    --panel-high: 27 37 66;
+    --edge: 31 41 70;
+    --edge-strong: 48 64 107;
+    --fg: 237 242 255;
+    --fg-muted: 158 173 205;
+    --fg-faint: 114 130 166;
+    --brand: 96 165 250;
+    --brand-two: 167 139 250;
+    --brand-deep: 59 130 246;
+    --brand-on: 255 255 255;
+    --ok: 52 211 153;
   }
 
   html {
@@ -53,15 +45,14 @@
 
   body {
     @apply bg-bg font-sans text-fg antialiased;
-    font-synthesis-weight: none;
   }
 
   ::selection {
-    @apply bg-gold/30 text-fg;
+    @apply bg-brand/30 text-fg;
   }
 
   :focus-visible {
-    @apply outline-none ring-2 ring-gold ring-offset-2 ring-offset-bg;
+    @apply outline-none ring-2 ring-brand ring-offset-2 ring-offset-bg;
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -79,7 +70,6 @@
 }
 
 @layer components {
-  /* Layout -------------------------------------------------------------- */
   .shell {
     @apply mx-auto w-full max-w-6xl px-5 sm:px-8;
   }
@@ -88,76 +78,73 @@
     @apply scroll-mt-28 py-20 sm:py-28;
   }
 
-  /* Type ---------------------------------------------------------------- */
-  .key {
-    @apply font-mono text-[11px] uppercase tracking-key text-gold;
+  /* Centred section headers, as in the references. */
+  .band-head {
+    @apply mx-auto max-w-2xl text-center;
   }
 
-  .display {
-    @apply font-display font-semibold text-fg;
+  .eyebrow {
+    @apply font-mono text-[11px] font-medium uppercase tracking-[0.22em] text-brand;
+  }
+
+  .h-section {
+    @apply mt-4 font-display text-section font-semibold text-fg;
     text-wrap: balance;
   }
 
   .lead {
-    @apply max-w-2xl text-lead text-fg-muted;
+    @apply text-lead text-fg-muted;
   }
 
-  .figure {
-    @apply font-mono font-medium tabular-nums text-fg;
+  /* The name, and any word that should carry the brand gradient. */
+  .grad {
+    @apply bg-brand-text bg-clip-text text-transparent;
   }
 
-  /* Surfaces ------------------------------------------------------------- */
+  /* Rounded, softly lit cards — the dominant surface in every reference. */
   .card {
-    @apply rounded-panel border border-edge bg-panel;
+    @apply rounded-card border border-edge bg-panel/80 backdrop-blur-sm;
   }
 
-  /* One lift, used only where something is genuinely interactive. */
-  .card-lift {
-    @apply transition-[transform,border-color,background-color] duration-300 ease-out hover:-translate-y-1 hover:border-edge-strong hover:bg-panel-raised;
+  .card-hover {
+    @apply transition-all duration-300 hover:-translate-y-1 hover:border-brand/45 hover:shadow-glow;
   }
 
-  .hairline {
-    @apply h-px w-full bg-edge-fade;
+  .pill {
+    @apply inline-flex items-center gap-2 rounded-pill border border-edge bg-panel/70 px-3.5 py-1.5 text-[12.5px] font-medium text-fg-muted backdrop-blur-sm;
   }
 
-  /* Controls ------------------------------------------------------------- */
-  .btn {
-    @apply inline-flex items-center justify-center gap-2 rounded-pill px-5 py-2.5 text-sm font-semibold transition-colors duration-200;
+  .pill-brand {
+    @apply inline-flex items-center gap-2 rounded-pill border border-brand/35 bg-brand/10 px-3 py-1 font-mono text-[10.5px] uppercase tracking-wider text-brand;
   }
 
-  .btn-gold {
-    @apply btn bg-gold text-gold-on hover:bg-gold-bright;
-  }
-
-  .btn-line {
-    @apply btn border border-edge-strong text-fg hover:border-gold hover:text-gold;
-  }
-
-  .chip {
+  .tag {
     @apply inline-flex items-center rounded-pill border border-edge bg-panel-high px-2.5 py-1 font-mono text-[11px] text-fg-muted;
   }
 
-  .chip-gold {
-    @apply inline-flex items-center rounded-pill border border-gold/35 bg-gold/10 px-2.5 py-1 font-mono text-[10.5px] uppercase tracking-wider text-gold;
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-pill px-6 py-3 text-sm font-semibold transition-all duration-200;
   }
 
-  /* An underline that draws rather than a colour that shouts. */
-  .ul-draw {
-    @apply relative inline-flex items-center gap-1.5 font-medium text-fg transition-colors duration-200 hover:text-gold;
-    background-image: linear-gradient(currentColor, currentColor);
-    background-position: 0 100%;
-    background-repeat: no-repeat;
-    background-size: 0% 1px;
-    transition: background-size 0.3s cubic-bezier(0.19, 1, 0.22, 1), color 0.2s;
+  .btn-brand {
+    @apply btn bg-brand-fill text-brand-on shadow-glow hover:-translate-y-0.5;
   }
 
-  .ul-draw:hover {
-    background-size: 100% 1px;
+  .btn-line {
+    @apply btn border border-edge-strong text-fg hover:border-brand hover:text-brand;
   }
 
-  /* The floating navigation bar. Blur is the only glass effect on the page,
-     so it reads as chrome rather than as a style applied everywhere. */
+  .stat {
+    @apply font-display text-[1.9rem] font-semibold leading-none tabular-nums;
+  }
+
+  /* The nav's surface once the page scrolls. The only blur on the page, so it
+     reads as chrome rather than a texture applied everywhere. */
   .glass {
-    @apply border border-edge/80 bg-panel/70 backdrop-blur-xl;
+    @apply border-edge/80 bg-bg/80 backdrop-blur-xl;
+  }
+
+  .link-arrow {
+    @apply inline-flex items-center gap-1.5 text-[13.5px] font-semibold text-brand transition-colors hover:text-fg;
   }
 }

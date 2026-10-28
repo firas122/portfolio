@@ -5,21 +5,21 @@ const lang = Astro.currentLocale ?? "en";
 const { testimonial } = getContent(lang);
 ---
 
-{/* A pull-quote band, not a card: the display face does the work and the
+{/* A pull-quote band, not a card: the font-display font-semibold face does the work and the
     attribution sits quietly under a rule. */}
 <section class="border-y border-edge bg-panel/40 py-20 sm:py-24">
   <div class="shell max-w-4xl">
-    <p class="key">{testimonial.eyebrow}</p>
+    <p class="eyebrow">{testimonial.eyebrow}</p>
 
     <blockquote class="mt-7">
-      <p class="display text-[clamp(1.5rem,3.2vw,2.3rem)] leading-[1.25]">
-        <span class="text-gold">“</span>{testimonial.quote}<span class="text-gold">”</span>
+      <p class="font-display font-semibold text-[clamp(1.5rem,3.2vw,2.3rem)] leading-[1.25]">
+        <span class="text-brand">“</span>{testimonial.quote}<span class="text-brand">”</span>
       </p>
     </blockquote>
 
     <div class="mt-8 flex flex-wrap items-center gap-x-5 gap-y-3 border-t border-edge pt-6">
       <div
-        class="flex items-center gap-0.5 text-gold"
+        class="flex items-center gap-0.5 text-brand"
         role="img"
         aria-label={testimonial.ratedOutOf5(testimonial.rating)}
       >

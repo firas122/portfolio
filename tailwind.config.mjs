@@ -1,17 +1,13 @@
 /** @type {import('tailwindcss').Config} */
 
-// Design tokens for a Document AI engineer's site.
+// Matched to the references supplied (sankar.work closest, plus tonybatts,
+// dakshgajjar, marcomadonna, oakharbor). The shared register across all of
+// them: a dark navy ground, a centred hero where the PERSON is the subject,
+// the name itself carried in a bright accent, rounded pill shapes, soft glow,
+// a friendly geometric sans, and ambient motion. Not editorial, not austere.
 //
-// Every colour resolves through a CSS custom property declared in global.css,
-// so there is exactly one set of class names and the light/dark split lives in
-// one place instead of being sprayed across components as `dark:` variants.
-// Channels are stored unprefixed ("240 180 41") so Tailwind can still apply
-// opacity modifiers like `text-gold/60`.
-//
-// The aesthetic: cold deep surfaces with one warm light source. Extraction is
-// the act of lighting up the part of a page that matters, so the accent is the
-// gold of a highlight falling on a document, and the grounds are the dark of
-// the table it sits on. One accent family, spent deliberately.
+// Colours resolve through CSS custom properties declared in global.css so both
+// themes live in one place.
 const themed = (name) => `rgb(var(--${name}) / <alpha-value>)`;
 
 export default {
@@ -26,68 +22,64 @@ export default {
           raised: themed("panel-raised"),
           high: themed("panel-high"),
         },
-        edge: {
-          DEFAULT: themed("edge"),
-          strong: themed("edge-strong"),
-        },
+        edge: { DEFAULT: themed("edge"), strong: themed("edge-strong") },
         fg: {
           DEFAULT: themed("fg"),
           muted: themed("fg-muted"),
           faint: themed("fg-faint"),
         },
-        gold: {
-          DEFAULT: themed("gold"),
-          bright: themed("gold-bright"),
-          deep: themed("gold-deep"),
-          on: themed("gold-on"),
+        // Blue into violet, the gradient the references put on the name.
+        brand: {
+          DEFAULT: themed("brand"),
+          two: themed("brand-two"),
+          deep: themed("brand-deep"),
+          on: themed("brand-on"),
         },
-        ember: themed("ember"),
+        ok: themed("ok"),
       },
       fontFamily: {
-        // Familjen Grotesk carries the display type — a Swedish grotesque, which
-        // is a quiet nod to the receipt work, with far more presence than a
-        // neutral UI face. Archivo does the reading. DM Mono holds data.
-        display: ["Familjen Grotesk", "Archivo", "system-ui", "sans-serif"],
-        sans: ["Archivo", "system-ui", "-apple-system", "Segoe UI", "sans-serif"],
-        mono: ["DM Mono", "ui-monospace", "SFMono-Regular", "Menlo", "monospace"],
+        // Poppins is the geometric sans these sites use for headings: circular
+        // bowls, friendly, reads confident rather than severe. Plus Jakarta
+        // Sans does the reading. Mono only for small data labels.
+        display: ["Poppins", "system-ui", "sans-serif"],
+        sans: ["Plus Jakarta Sans", "system-ui", "-apple-system", "Segoe UI", "sans-serif"],
+        mono: ["JetBrains Mono", "ui-monospace", "SFMono-Regular", "Menlo", "monospace"],
       },
       fontSize: {
-        // A deliberate display scale, not Tailwind's default steps.
-        hero: ["clamp(2.35rem, 5vw, 4.1rem)", { lineHeight: "1.02", letterSpacing: "-0.03em" }],
-        section: ["clamp(2rem, 4.2vw, 3.1rem)", { lineHeight: "1.04", letterSpacing: "-0.028em" }],
-        lead: ["clamp(1.05rem, 1.6vw, 1.2rem)", { lineHeight: "1.65" }],
+        name: ["clamp(2.6rem, 7vw, 5.2rem)", { lineHeight: "1.02", letterSpacing: "-0.035em" }],
+        section: ["clamp(1.9rem, 4vw, 2.9rem)", { lineHeight: "1.12", letterSpacing: "-0.025em" }],
+        lead: ["clamp(1rem, 1.5vw, 1.1rem)", { lineHeight: "1.7" }],
       },
-      letterSpacing: { key: "0.2em" },
-      borderRadius: { panel: "14px", pill: "999px" },
+      borderRadius: { card: "20px", pill: "999px" },
       backgroundImage: {
-        // The light source. A single warm pool, off-centre, so the page has a
-        // direction to it rather than an even wash.
-        lamp: "radial-gradient(60rem 36rem at 12% -8%, rgb(var(--lamp) / 0.5), transparent 62%)",
-        "lamp-soft": "radial-gradient(44rem 28rem at 88% 4%, rgb(var(--lamp) / 0.28), transparent 60%)",
-        "gold-sweep": "linear-gradient(104deg, rgb(var(--gold)), rgb(var(--ember)))",
-        "edge-fade": "linear-gradient(to right, transparent, rgb(var(--edge-strong)), transparent)",
+        "brand-text": "linear-gradient(100deg, rgb(var(--brand)), rgb(var(--brand-two)))",
+        "brand-fill": "linear-gradient(100deg, rgb(var(--brand-deep)), rgb(var(--brand-two)))",
+        // The ambient wash behind the hero.
+        aura: "radial-gradient(44rem 30rem at 50% -6%, rgb(var(--brand) / 0.20), transparent 68%)",
+        "aura-two": "radial-gradient(34rem 24rem at 82% 18%, rgb(var(--brand-two) / 0.14), transparent 65%)",
       },
-      transitionTimingFunction: { out: "cubic-bezier(0.19, 1, 0.22, 1)" },
+      boxShadow: {
+        glow: "0 0 0 1px rgb(var(--brand) / 0.18), 0 18px 50px -18px rgb(var(--brand) / 0.45)",
+        lift: "0 20px 50px -24px rgb(0 0 0 / 0.55)",
+      },
       animation: {
-        rise: "rise 0.7s cubic-bezier(0.19,1,0.22,1) both",
-        sweep: "sweep 5.5s cubic-bezier(0.45,0,0.2,1) infinite",
-        "pulse-dot": "pulse-dot 2.4s ease-in-out infinite",
+        rise: "rise 0.75s cubic-bezier(0.16,1,0.3,1) both",
+        float: "float 7s ease-in-out infinite",
+        bob: "bob 2s ease-in-out infinite",
+        "spin-slow": "spin 22s linear infinite",
       },
       keyframes: {
         rise: {
-          "0%": { opacity: "0", transform: "translateY(16px)" },
+          "0%": { opacity: "0", transform: "translateY(18px)" },
           "100%": { opacity: "1", transform: "none" },
         },
-        // The scan pass that lights each field in turn.
-        sweep: {
-          "0%, 8%": { transform: "translateY(-10%)", opacity: "0" },
-          "18%": { opacity: "1" },
-          "82%": { opacity: "1" },
-          "100%": { transform: "translateY(760%)", opacity: "0" },
+        float: {
+          "0%, 100%": { transform: "translateY(0)" },
+          "50%": { transform: "translateY(-10px)" },
         },
-        "pulse-dot": {
-          "0%, 100%": { opacity: "1", transform: "scale(1)" },
-          "50%": { opacity: "0.45", transform: "scale(0.82)" },
+        bob: {
+          "0%, 100%": { transform: "translateY(0)" },
+          "50%": { transform: "translateY(6px)" },
         },
       },
     },

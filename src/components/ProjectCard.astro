@@ -20,12 +20,12 @@ const ordinal = String(index + 1).padStart(2, "0");
 <article
   class:list={[
     "card group relative overflow-hidden",
-    feature ? "" : "card-lift flex flex-col",
+    feature ? "" : "card-hover flex flex-col",
   ]}
 >
   {/* A warm edge lights the top of a feature row — the only gradient on a
       surface, so it stays an accent rather than a texture. */}
-  {feature && <div class="absolute inset-x-0 top-0 h-px bg-gold-sweep"></div>}
+  {feature && <div class="absolute inset-x-0 top-0 h-px bg-brand-fill"></div>}
 
   <div
     class:list={[
@@ -35,12 +35,12 @@ const ordinal = String(index + 1).padStart(2, "0");
     <div class:list={["bg-panel", feature ? "p-6 sm:p-9" : "p-6", flip && feature ? "lg:order-2" : ""]}>
       <div class="flex items-center gap-3">
         <span class="font-mono text-[11px] text-fg-faint">{ordinal}</span>
-        <span class="chip-gold">{project.tag}</span>
+        <span class="pill-brand">{project.tag}</span>
       </div>
 
       <h3
         class:list={[
-          "display mt-4 tracking-tight",
+          "font-display font-semibold mt-4 tracking-tight",
           feature ? "text-[1.9rem] leading-[1.1] sm:text-[2.3rem]" : "text-[1.3rem] leading-snug",
         ]}
       >
@@ -49,21 +49,21 @@ const ordinal = String(index + 1).padStart(2, "0");
 
       <div class:list={["mt-5 space-y-4", feature ? "text-[15px]" : "text-[14px]"]}>
         <p class="leading-relaxed text-fg-muted">
-          <span class="key mb-1 block">{labels.problem}</span>
+          <span class="eyebrow mb-1 block">{labels.problem}</span>
           {project.problem}
         </p>
         <p class="leading-relaxed text-fg-muted">
-          <span class="key mb-1 block">{labels.approach}</span>
+          <span class="eyebrow mb-1 block">{labels.approach}</span>
           {project.approach}
         </p>
         <p class="leading-relaxed text-fg-muted">
-          <span class="key mb-1 block">{labels.outcome}</span>
+          <span class="eyebrow mb-1 block">{labels.outcome}</span>
           {project.outcome}
         </p>
       </div>
 
       <div class="mt-6 flex flex-wrap gap-1.5">
-        {project.stack.map((tech) => <span class="chip">{tech}</span>)}
+        {project.stack.map((tech) => <span class="tag">{tech}</span>)}
       </div>
     </div>
 
@@ -80,7 +80,7 @@ const ordinal = String(index + 1).padStart(2, "0");
           <dl class:list={[feature ? "space-y-6" : "flex flex-col gap-3 sm:grid sm:grid-cols-3"]}>
             {project.metrics.map((metric) => (
               <div>
-                <dd class:list={["figure leading-none text-gold", feature ? "text-[2rem]" : "text-[1.1rem]"]}>
+                <dd class:list={["stat leading-none text-brand", feature ? "text-[2rem]" : "text-[1.1rem]"]}>
                   {metric.value}
                 </dd>
                 <dt class="mt-1.5 text-[12px] leading-snug text-fg-faint">{metric.label}</dt>
@@ -97,14 +97,14 @@ const ordinal = String(index + 1).padStart(2, "0");
               <div class="flex flex-wrap items-center gap-x-5 gap-y-2">
                 {links.map((link) =>
                   link.kind === "demo" ? (
-                    <a href={link.href} target="_blank" rel="noopener noreferrer" class="btn-gold h-9 px-4 text-[13px]">
+                    <a href={link.href} target="_blank" rel="noopener noreferrer" class="btn-brand h-9 px-4 text-[13px]">
                       {link.label}
                       <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                         <path d="M7 17 17 7M7 7h10v10" />
                       </svg>
                     </a>
                   ) : (
-                    <a href={link.href} target="_blank" rel="noopener noreferrer" class="ul-draw text-[13.5px]">
+                    <a href={link.href} target="_blank" rel="noopener noreferrer" class="link-arrow text-[13.5px]">
                       {link.label}
                       <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                         <path d="M7 17 17 7M7 7h10v10" />

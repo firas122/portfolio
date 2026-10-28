@@ -99,6 +99,9 @@ export const en = {
   ],
 
   hero: {
+    greeting: "Hello, I'm",
+    availability: "Available for work",
+    scrollCue: "Scroll",
     eyebrow: "Intelligent Document Processing & Data Extraction Specialist",
     headline: "I turn messy documents into clean, structured data.",
     subhead:

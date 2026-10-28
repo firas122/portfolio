@@ -1,32 +1,54 @@
 ---
 import { getContent } from "@/i18n";
-import ExtractionPanel from "@/components/ExtractionPanel.astro";
 import Portrait from "@/components/Portrait.astro";
 
 const lang = Astro.currentLocale ?? "en";
-const { hero, person } = getContent(lang);
+const { hero, person, proof } = getContent(lang);
+
+// The name is split so the surname can carry the gradient, as in the
+// references — the person is the subject of the hero, not a slogan.
+const [firstName, ...restName] = person.name.split(" ");
+const lastName = restName.join(" ");
 ---
 
-{/* Asymmetric on purpose: the claim takes the wide column and the proof sits
-    beside it, rather than the centred stack the old hero used. */}
-<section id="top" class="shell relative grid items-center gap-14 pb-16 pt-28 sm:pt-36 lg:grid-cols-[1.15fr_1fr] lg:gap-16 lg:pb-24 lg:pt-44">
-  <div>
-    <div class="flex animate-rise items-center gap-3">
-      <span class="relative flex h-1.5 w-1.5">
-        <span class="absolute inline-flex h-full w-full animate-pulse-dot rounded-pill bg-gold"></span>
-        <span class="relative inline-flex h-1.5 w-1.5 rounded-pill bg-gold"></span>
-      </span>
-      <p class="key">{hero.eyebrow}</p>
+<section id="top" class="relative overflow-hidden">
+  <div class="shell flex flex-col items-center pb-20 pt-32 text-center sm:pt-40">
+    {/* Portrait leads. A soft ring and a slow float so it sits in the aura
+        rather than being pasted onto it. */}
+    <div class="relative animate-rise">
+      <div class="absolute -inset-5 rounded-pill bg-brand-fill opacity-25 blur-2xl"></div>
+      <Portrait
+        class="relative h-32 w-32 animate-float rounded-pill ring-2 ring-brand/40 sm:h-40 sm:w-40"
+        placeholderClass="text-4xl"
+        loading="eager"
+        fetchpriority="high"
+      />
     </div>
 
-    <h1 class="display mt-6 animate-rise text-hero" style="animation-delay:60ms">
-      {hero.headline}
+    <div class="mt-8 flex animate-rise flex-wrap items-center justify-center gap-2.5" style="animation-delay:80ms">
+      <span class="pill">
+        <span class="relative flex h-2 w-2">
+          <span class="absolute inline-flex h-full w-full animate-ping rounded-pill bg-ok opacity-70"></span>
+          <span class="relative inline-flex h-2 w-2 rounded-pill bg-ok"></span>
+        </span>
+        {hero.availability}
+      </span>
+      <span class="pill">{person.location}</span>
+    </div>
+
+    <h1 class="mt-7 animate-rise font-display text-name font-semibold" style="animation-delay:140ms">
+      <span class="block text-fg-muted text-[0.32em] font-medium tracking-normal">{hero.greeting}</span>
+      <span class="text-fg">{firstName}</span> <span class="grad">{lastName}</span>
     </h1>
 
-    <p class="lead mt-7 animate-rise" style="animation-delay:120ms">{hero.subhead}</p>
+    <p class="mt-4 animate-rise font-display text-[1.15rem] font-medium text-fg-muted sm:text-[1.35rem]" style="animation-delay:180ms">
+      {hero.eyebrow}
+    </p>
 
-    <div class="mt-9 flex animate-rise flex-wrap items-center gap-3" style="animation-delay:180ms">
-      <a href={hero.ctaPrimary.href} class="btn-gold">
+    <p class="lead mt-7 max-w-2xl animate-rise" style="animation-delay:220ms">{hero.subhead}</p>
+
+    <div class="mt-9 flex animate-rise flex-wrap items-center justify-center gap-3" style="animation-delay:280ms">
+      <a href={hero.ctaPrimary.href} class="btn-brand">
         {hero.ctaPrimary.label}
         <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
           <path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"></path>
@@ -37,15 +59,24 @@ const { hero, person } = getContent(lang);
       </a>
     </div>
 
-    <div class="mt-10 flex animate-rise items-center gap-3 border-t border-edge pt-6" style="animation-delay:240ms">
-      <Portrait class="h-10 w-10 shrink-0 rounded-pill" placeholderClass="text-sm" loading="eager" fetchpriority="high" />
-      <p class="text-[13px] leading-snug text-fg-faint">
-        <span class="text-fg-muted">{person.location}</span> · {person.locationNote}
-      </p>
-    </div>
-  </div>
+    {/* The measured figures, directly under the fold line, as a strip of pills
+        rather than a separate banded section. */}
+    <dl class="mt-14 grid w-full animate-rise grid-cols-2 gap-3 sm:max-w-3xl sm:grid-cols-4" style="animation-delay:340ms">
+      {
+        proof.items.map((item) => (
+          <div class="card px-4 py-5">
+            <dd class="stat grad">{item.value}</dd>
+            <dt class="mt-2 text-[12px] leading-snug text-fg-faint">{item.label}</dt>
+          </div>
+        ))
+      }
+    </dl>
 
-  <div class="animate-rise lg:pl-4" style="animation-delay:300ms">
-    <ExtractionPanel />
+    <a href="#projects" class="mt-14 inline-flex animate-bob flex-col items-center gap-1 text-fg-faint transition-colors hover:text-brand" aria-label={hero.scrollCue}>
+      <span class="font-mono text-[10px] uppercase tracking-[0.2em]">{hero.scrollCue}</span>
+      <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <path d="m6 9 6 6 6-6" stroke-linecap="round" stroke-linejoin="round"></path>
+      </svg>
+    </a>
   </div>
 </section>

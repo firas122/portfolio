@@ -18,14 +18,9 @@ const compact = projects.items.filter((p) => !p.featured && !p.metrics);
 ---
 
 <section id="projects" class="band shell">
-  <div class="flex flex-wrap items-end justify-between gap-6">
-    <div>
-      <p class="key">{projects.heading}</p>
-      <h2 class="display mt-4 text-section">{projects.subheading}</h2>
-    </div>
-    <p class="font-mono text-[12px] text-fg-faint">
-      {String(projects.items.length).padStart(2, "0")} / {String(projects.items.length).padStart(2, "0")}
-    </p>
+  <div class="band-head">
+    <p class="eyebrow">{projects.heading}</p>
+    <h2 class="h-section">{projects.subheading}</h2>
   </div>
 
   <div class="mt-12 space-y-6">

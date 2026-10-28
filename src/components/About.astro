@@ -11,8 +11,8 @@ const { about, person } = getContent(lang);
 <section id="about" class="band shell">
   <div class="grid gap-12 lg:grid-cols-[1.4fr_1fr] lg:gap-16">
     <div>
-      <p class="key">{about.heading}</p>
-      <h2 class="display mt-4 text-section max-w-xl">{about.subheading}</h2>
+      <p class="eyebrow">{about.heading}</p>
+      <h2 class="h-section max-w-xl">{about.subheading}</h2>
       <div class="mt-8 space-y-5">
         {
           about.paragraphs.map((paragraph, i) => (
@@ -29,11 +29,11 @@ const { about, person } = getContent(lang);
         <Portrait class="aspect-[4/5] w-full" placeholderClass="text-6xl" loading="lazy" />
         <dl class="divide-y divide-edge border-t border-edge">
           <div class="flex items-baseline justify-between gap-4 px-5 py-4">
-            <dt class="key">{about.basedInLabel}</dt>
+            <dt class="eyebrow">{about.basedInLabel}</dt>
             <dd class="text-right text-[14px] text-fg">{person.location}</dd>
           </div>
           <div class="flex items-baseline justify-between gap-4 px-5 py-4">
-            <dt class="key">{about.languagesLabel}</dt>
+            <dt class="eyebrow">{about.languagesLabel}</dt>
             <dd class="text-right text-[14px] text-fg">{person.languages.join(" · ")}</dd>
           </div>
         </dl>

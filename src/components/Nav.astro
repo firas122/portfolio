@@ -28,7 +28,7 @@ const initials = person.name
     >
       <a href="#top" class="group flex shrink-0 items-center gap-2.5" aria-label={person.name}>
         <span
-          class="grid h-8 w-8 place-items-center rounded-pill bg-gold-sweep font-mono text-[12px] font-medium text-gold-on"
+          class="grid h-8 w-8 place-items-center rounded-pill bg-brand-fill font-mono text-[12px] font-medium text-brand-on"
         >
           {initials}
         </span>
@@ -71,7 +71,7 @@ const initials = person.name
         <button
           id="theme-toggle"
           type="button"
-          class="grid h-8 w-8 place-items-center rounded-pill border border-edge text-fg-muted transition-colors hover:border-gold hover:text-gold"
+          class="grid h-8 w-8 place-items-center rounded-pill border border-edge text-fg-muted transition-colors hover:border-brand hover:text-brand"
           aria-label={ui.themeToggle}
         >
           <svg class="h-4 w-4 dark:hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
@@ -83,7 +83,7 @@ const initials = person.name
           </svg>
         </button>
 
-        <a href="#contact" class="btn-gold hidden h-8 px-4 py-0 text-[13px] sm:inline-flex">
+        <a href="#contact" class="btn-brand hidden h-8 px-4 py-0 text-[13px] sm:inline-flex">
           {ui.contactCta}
         </a>
 
@@ -102,7 +102,7 @@ const initials = person.name
       </div>
     </div>
 
-    <div id="mobile-menu" class="glass pointer-events-auto mt-2 hidden rounded-panel p-2 lg:hidden">
+    <div id="mobile-menu" class="glass pointer-events-auto mt-2 hidden rounded-card p-2 lg:hidden">
       <nav class="grid">
         {
           nav.map((item) => (
@@ -130,7 +130,7 @@ const initials = person.name
             </a>
           ))
         }
-        <a href="#contact" data-menu-link class="btn-gold ml-auto h-8 px-4 py-0 text-[13px]">{ui.contactCta}</a>
+        <a href="#contact" data-menu-link class="btn-brand ml-auto h-8 px-4 py-0 text-[13px]">{ui.contactCta}</a>
       </div>
     </div>
   </div>

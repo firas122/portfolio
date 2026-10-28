@@ -96,27 +96,25 @@ const personSchema = {
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@500;600;700&family=Archivo:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
       rel="stylesheet"
     />
 
     <script type="application/ld+json" set:html={JSON.stringify(personSchema)} />
 
     <script is:inline>
-      // Runs before paint to avoid a light/dark flash. A saved choice wins;
-      // otherwise follow the operating system rather than forcing dark.
+      // Runs before paint to avoid a flash. A saved choice wins; otherwise dark,
+      // which is the register this design was built in.
       (function () {
         const stored = localStorage.getItem("theme");
-        const isDark = stored
-          ? stored === "dark"
-          : window.matchMedia("(prefers-color-scheme: dark)").matches;
+        const isDark = stored ? stored === "dark" : true;
         document.documentElement.classList.toggle("dark", isDark);
       })();
     </script>
   </head>
   <body class="relative min-h-screen overflow-x-hidden">
-    <div class="pointer-events-none fixed inset-0 -z-10 bg-lamp"></div>
-    <div class="pointer-events-none fixed inset-0 -z-10 bg-lamp-soft"></div>
+    <div class="pointer-events-none fixed inset-0 -z-10 bg-aura"></div>
+    <div class="pointer-events-none fixed inset-0 -z-10 bg-aura-two"></div>
     <slot />
   </body>
 </html>
