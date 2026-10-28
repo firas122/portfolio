@@ -2,13 +2,13 @@
 import Layout from "@/layouts/Layout.astro";
 import Nav from "@/components/Nav.astro";
 import Hero from "@/components/Hero.astro";
-import About from "@/components/About.astro";
-import Services from "@/components/Services.astro";
-import Projects from "@/components/Projects.astro";
+import ProofStrip from "@/components/ProofStrip.astro";
+import Work from "@/components/Work.astro";
 import OpenSource from "@/components/OpenSource.astro";
-import Testimonial from "@/components/Testimonial.astro";
+import Expertise from "@/components/Expertise.astro";
+import About from "@/components/About.astro";
 import Experience from "@/components/Experience.astro";
-import Skills from "@/components/Skills.astro";
+import Testimonial from "@/components/Testimonial.astro";
 import Contact from "@/components/Contact.astro";
 import Footer from "@/components/Footer.astro";
 ---
@@ -16,14 +16,17 @@ import Footer from "@/components/Footer.astro";
 <Layout>
   <Nav />
   <main>
+    {/* Work leads. The old flow spent three sections on self-description
+        before showing anything built; this puts the evidence first and the
+        biography after it. */}
     <Hero />
-    <About />
-    <Services />
-    <Projects />
+    <ProofStrip />
+    <Work />
     <OpenSource />
-    <Testimonial />
+    <Expertise />
+    <About />
     <Experience />
-    <Skills />
+    <Testimonial />
     <Contact />
   </main>
   <Footer />

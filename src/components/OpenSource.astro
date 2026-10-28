@@ -1,46 +1,51 @@
 ---
 import { getContent } from "@/i18n";
-import ProjectLinks from "@/components/ProjectLinks.astro";
 
 const lang = Astro.currentLocale ?? "en";
 const { openSource } = getContent(lang);
 ---
 
-<section id="open-source" class="section-shell scroll-mt-24 py-16 sm:py-20">
-  <p class="field-label">{openSource.heading}</p>
-  <h2 class="section-title max-w-2xl">{openSource.subheading}</h2>
+{/* Kept visually distinct from Work: a quieter band, because the authorship is
+    different and the design should say so before the text does. */}
+<section id="open-source" class="band border-y border-edge bg-panel/40">
+  <div class="shell">
+    <p class="key">{openSource.heading}</p>
+    <h2 class="display mt-4 text-section">{openSource.subheading}</h2>
 
-  <div class="mt-10 grid grid-cols-1 gap-6">
-    {
-      openSource.items.map((item) => (
-        <article class="record record-hover overflow-hidden">
-          <div class="flex flex-wrap items-baseline gap-x-3 gap-y-1 border-b border-ink-200 px-6 py-4 dark:border-ink-700">
-            <span class="badge-signal">{item.tag}</span>
-            <h3 class="font-display text-[1.45rem] leading-tight text-ink-900 dark:text-ink-100">
-              {item.title}
-            </h3>
-            {/* Upstream authorship sits next to the title, not in small print. */}
-            <span class="font-mono text-[12px] text-ink-400">{item.upstream}</span>
-          </div>
+    <div class="mt-10 grid gap-6">
+      {
+        openSource.items.map((item) => (
+          <article class="card card-lift p-6 sm:p-8">
+            <div class="flex flex-wrap items-baseline gap-x-3 gap-y-2">
+              <h3 class="display text-[1.5rem] leading-tight">{item.title}</h3>
+              <span class="font-mono text-[12px] text-fg-faint">{item.upstream}</span>
+              <span class="chip-gold ml-auto">{item.tag}</span>
+            </div>
 
-          <div class="grid gap-x-10 gap-y-5 px-6 py-6 md:grid-cols-2">
-            <p class="text-[15px] leading-relaxed text-ink-400">{item.summary}</p>
-            <p class="text-[15px] leading-relaxed text-ink-600 dark:text-ink-200">
-              <span class="field-label mb-1 block">{openSource.roleLabel}</span>
-              {item.contribution}
-            </p>
-          </div>
+            <div class="mt-6 grid gap-x-10 gap-y-5 md:grid-cols-2">
+              <p class="text-[14.5px] leading-relaxed text-fg-faint">{item.summary}</p>
+              <p class="text-[14.5px] leading-relaxed text-fg-muted">
+                <span class="key mb-1 block">{openSource.roleLabel}</span>
+                {item.contribution}
+              </p>
+            </div>
 
-          <div class="flex flex-wrap items-center justify-between gap-4 border-t border-ink-200 px-6 py-4 dark:border-ink-700">
-            <div class="flex flex-wrap gap-1.5">
-              {item.stack.map((tech) => (
-                <span class="badge">{tech}</span>
+            <div class="mt-7 flex flex-wrap items-center justify-between gap-4 border-t border-edge pt-5">
+              <div class="flex flex-wrap gap-1.5">
+                {item.stack.map((tech) => <span class="chip">{tech}</span>)}
+              </div>
+              {item.links?.map((link) => (
+                <a href={link.href} target="_blank" rel="noopener noreferrer" class="ul-draw text-[13.5px]">
+                  {link.label}
+                  <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <path d="M7 17 17 7M7 7h10v10" />
+                  </svg>
+                </a>
               ))}
             </div>
-            <ProjectLinks links={item.links} />
-          </div>
-        </article>
-      ))
-    }
+          </article>
+        ))
+      }
+    </div>
   </div>
 </section>

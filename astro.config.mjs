@@ -3,7 +3,7 @@ import tailwind from "@astrojs/tailwind";
 import sitemap from "@astrojs/sitemap";
 
 export default defineConfig({
-  site: "https://portfolio-firas-jamli.up.railway.app",
+  site: "https://portfolio-firas-jamli.vercel.app",
   integrations: [tailwind({ applyBaseStyles: false }), sitemap()],
   i18n: {
     defaultLocale: "en",

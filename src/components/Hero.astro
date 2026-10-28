@@ -1,69 +1,51 @@
 ---
 import { getContent } from "@/i18n";
-import DocToJson from "@/components/DocToJson.astro";
+import ExtractionPanel from "@/components/ExtractionPanel.astro";
 import Portrait from "@/components/Portrait.astro";
 
 const lang = Astro.currentLocale ?? "en";
-const { hero, person, projects } = getContent(lang);
-
-// The hero's proof line is read from the flagship project rather than restated,
-// so a figure can never be stale in one place and current in the other.
-const flagship = projects.items.find((p) => p.featured);
-const proof = flagship?.metrics?.[0];
+const { hero, person } = getContent(lang);
 ---
 
-<section
-  id="top"
-  class="section-shell relative grid scroll-mt-24 gap-14 pb-10 pt-16 sm:pt-20 lg:grid-cols-[minmax(0,1fr)_minmax(0,26rem)] lg:items-start lg:gap-16 lg:pt-24"
->
-  <div class="animate-fade-up">
-    <div class="flex items-center gap-4">
-      <Portrait class="h-16 w-16 shrink-0 rounded-full" placeholderClass="text-xl" loading="eager" fetchpriority="high" />
-      <div>
-        <p class="font-mono text-[13px] text-ink-600 dark:text-ink-200">{person.name}</p>
-        <p class="field-label mt-1">{hero.eyebrow}</p>
-      </div>
+{/* Asymmetric on purpose: the claim takes the wide column and the proof sits
+    beside it, rather than the centred stack the old hero used. */}
+<section id="top" class="shell relative grid items-center gap-14 pb-16 pt-28 sm:pt-36 lg:grid-cols-[1.15fr_1fr] lg:gap-16 lg:pb-24 lg:pt-44">
+  <div>
+    <div class="flex animate-rise items-center gap-3">
+      <span class="relative flex h-1.5 w-1.5">
+        <span class="absolute inline-flex h-full w-full animate-pulse-dot rounded-pill bg-gold"></span>
+        <span class="relative inline-flex h-1.5 w-1.5 rounded-pill bg-gold"></span>
+      </span>
+      <p class="key">{hero.eyebrow}</p>
     </div>
 
-    <h1
-      class="mt-9 font-display text-[2.6rem] leading-[1.05] tracking-tight text-ink-900 sm:text-[3.4rem] lg:text-[3.9rem] dark:text-ink-100"
-      style="text-wrap: balance"
-    >
+    <h1 class="display mt-6 animate-rise text-hero" style="animation-delay:60ms">
       {hero.headline}
     </h1>
 
-    <p class="mt-6 max-w-2xl text-[1.0625rem] leading-relaxed text-ink-400">
-      {hero.subhead}
-    </p>
+    <p class="lead mt-7 animate-rise" style="animation-delay:120ms">{hero.subhead}</p>
 
-    {
-      proof && (
-        <p class="mt-7 flex flex-wrap items-baseline gap-x-3 gap-y-1 border-l-2 border-accent pl-4 dark:border-accent-bright">
-          <span class="metric-value text-[1.6rem] text-accent-dim dark:text-accent-bright">{proof.value}</span>
-          <span class="text-[14px] text-ink-400">{proof.label}</span>
-        </p>
-      )
-    }
-
-    <div class="mt-9 flex flex-wrap items-center gap-3">
-      <a href={hero.ctaPrimary.href} class="btn-primary">
+    <div class="mt-9 flex animate-rise flex-wrap items-center gap-3" style="animation-delay:180ms">
+      <a href={hero.ctaPrimary.href} class="btn-gold">
         {hero.ctaPrimary.label}
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="h-4 w-4" aria-hidden="true">
-          <path d="M5 12h14M13 6l6 6-6 6"></path>
+        <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"></path>
         </svg>
       </a>
-      <a href={person.links.upwork} target="_blank" rel="noopener noreferrer" class="btn-ghost">
+      <a href={person.links.upwork} target="_blank" rel="noopener noreferrer" class="btn-line">
         {hero.ctaSecondary.label}
       </a>
     </div>
 
-    <p class="mt-8 flex items-center gap-2.5 font-mono text-[12.5px] text-ink-400">
-      <span class="inline-flex h-1.5 w-1.5 rounded-full bg-accent dark:bg-accent-bright"></span>
-      {person.location} · {person.locationNote}
-    </p>
+    <div class="mt-10 flex animate-rise items-center gap-3 border-t border-edge pt-6" style="animation-delay:240ms">
+      <Portrait class="h-10 w-10 shrink-0 rounded-pill" placeholderClass="text-sm" loading="eager" fetchpriority="high" />
+      <p class="text-[13px] leading-snug text-fg-faint">
+        <span class="text-fg-muted">{person.location}</span> · {person.locationNote}
+      </p>
+    </div>
   </div>
 
-  <div class="animate-fade-up lg:pt-6" style="animation-delay: 120ms">
-    <DocToJson />
+  <div class="animate-rise lg:pl-4" style="animation-delay:300ms">
+    <ExtractionPanel />
   </div>
 </section>

@@ -67,7 +67,7 @@ export const en = {
     title: "Firas Jamli — Intelligent Document Processing & Data Extraction Specialist",
     description:
       "Firas Jamli is an IT engineer specialized in Intelligent Document Processing (IDP) and Python development, turning messy PDFs, scans, and forms into clean structured data.",
-    url: "https://portfolio-firas-jamli.up.railway.app",
+    url: "https://portfolio-firas-jamli.vercel.app",
     ogImage: "/og-image.jpg",
     locale: "en_US",
   },
@@ -105,6 +105,15 @@ export const en = {
       "IT engineer based in Sousse, Tunisia, focused on document AI, OCR pipelines, and Python automation — for freelance clients and teams that need reliable extraction from PDFs, scans, and forms.",
     ctaPrimary: { label: "Send me a document sample", href: "#contact" },
     ctaSecondary: { label: "Hire me on Upwork" },
+  },
+
+  proof: {
+    items: [
+      { value: "99%", label: "receipt amount fields extracted correctly" },
+      { value: "1,519", label: "automated tests across shipped projects" },
+      { value: "4", label: "document formats parsed end to end" },
+      { value: "2", label: "languages shipped in every interface" },
+    ],
   },
 
   about: {

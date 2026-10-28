@@ -6,36 +6,38 @@ const lang = Astro.currentLocale ?? "en";
 const { about, person } = getContent(lang);
 ---
 
-<section id="about" class="section-shell scroll-mt-24 py-16 sm:py-20">
-  <div class="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] lg:gap-16">
+{/* Narrative in the wide column, facts on a rail beside it — rather than the
+    portrait-and-paragraphs block this used to be. */}
+<section id="about" class="band shell">
+  <div class="grid gap-12 lg:grid-cols-[1.4fr_1fr] lg:gap-16">
     <div>
-      <p class="field-label">{about.heading}</p>
-      <h2 class="section-title">
-        {about.subheading}
-      </h2>
-    </div>
-
-    <div class="flex flex-col gap-6 sm:flex-row sm:items-start">
-      <Portrait class="mx-auto h-[200px] w-[200px] sm:mx-0" placeholderClass="text-6xl" loading="lazy" />
-
-      <div class="flex-1 space-y-5">
+      <p class="key">{about.heading}</p>
+      <h2 class="display mt-4 text-section max-w-xl">{about.subheading}</h2>
+      <div class="mt-8 space-y-5">
         {
-          about.paragraphs.map((paragraph) => (
-            <p class="text-base leading-relaxed text-ink-400 sm:text-lg">{paragraph}</p>
+          about.paragraphs.map((paragraph, i) => (
+            <p class:list={["leading-relaxed", i === 0 ? "text-lead text-fg" : "text-[15.5px] text-fg-muted"]}>
+              {paragraph}
+            </p>
           ))
         }
+      </div>
+    </div>
 
-        <dl class="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2">
-          <div class="record p-4">
-            <dt class="font-mono text-xs uppercase tracking-widest text-accent-dim dark:text-accent-bright">{about.basedInLabel}</dt>
-            <dd class="mt-1 text-sm text-ink-900 dark:text-ink-100">{person.location}</dd>
+    <aside class="lg:pt-16">
+      <div class="card overflow-hidden">
+        <Portrait class="aspect-[4/5] w-full" placeholderClass="text-6xl" loading="lazy" />
+        <dl class="divide-y divide-edge border-t border-edge">
+          <div class="flex items-baseline justify-between gap-4 px-5 py-4">
+            <dt class="key">{about.basedInLabel}</dt>
+            <dd class="text-right text-[14px] text-fg">{person.location}</dd>
           </div>
-          <div class="record p-4">
-            <dt class="font-mono text-xs uppercase tracking-widest text-accent-dim dark:text-accent-bright">{about.languagesLabel}</dt>
-            <dd class="mt-1 text-sm text-ink-900 dark:text-ink-100">{person.languages.join(" · ")}</dd>
+          <div class="flex items-baseline justify-between gap-4 px-5 py-4">
+            <dt class="key">{about.languagesLabel}</dt>
+            <dd class="text-right text-[14px] text-fg">{person.languages.join(" · ")}</dd>
           </div>
         </dl>
       </div>
-    </div>
+    </aside>
   </div>
 </section>

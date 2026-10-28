@@ -7,7 +7,7 @@ export const fr: typeof en = {
     title: "Firas Jamli — Spécialiste en traitement intelligent de documents et extraction de données",
     description:
       "Firas Jamli est un ingénieur informatique spécialisé dans le traitement intelligent de documents (IDP) et le développement Python, transformant des PDF, scans et formulaires désordonnés en données structurées et exploitables.",
-    url: "https://portfolio-firas-jamli.up.railway.app",
+    url: "https://portfolio-firas-jamli.vercel.app",
     ogImage: "/og-image.jpg",
     locale: "fr_FR",
   },
@@ -46,6 +46,15 @@ export const fr: typeof en = {
       "Ingénieur informatique basé à Sousse, en Tunisie, spécialisé dans l'IA documentaire, les pipelines OCR et l'automatisation Python — pour des clients freelance et des équipes qui ont besoin d'une extraction fiable à partir de PDF, scans et formulaires.",
     ctaPrimary: { label: "Envoyez-moi un exemple de document", href: "#contact" },
     ctaSecondary: { label: "Recrutez-moi sur Upwork" },
+  },
+
+  proof: {
+    items: [
+      { value: "99 %", label: "montants de tickets extraits correctement" },
+      { value: "1 519", label: "tests automatisÃ©s sur les projets livrÃ©s" },
+      { value: "4", label: "formats de documents traitÃ©s de bout en bout" },
+      { value: "2", label: "langues livrÃ©es dans chaque interface" },
+    ],
   },
 
   about: {

@@ -1,0 +1,48 @@
+---
+import { getContent } from "@/i18n";
+import ProjectCard from "@/components/ProjectCard.astro";
+
+const lang = Astro.currentLocale ?? "en";
+const { projects } = getContent(lang);
+
+const labels = {
+  problem: projects.problemLabel,
+  approach: projects.approachLabel,
+  outcome: projects.outcomeLabel,
+};
+
+// Projects carrying measured figures lead as full-width rows; the rest fill a
+// grid. Order comes from the content file — this only decides density.
+const features = projects.items.filter((p) => p.featured || p.metrics);
+const compact = projects.items.filter((p) => !p.featured && !p.metrics);
+---
+
+<section id="projects" class="band shell">
+  <div class="flex flex-wrap items-end justify-between gap-6">
+    <div>
+      <p class="key">{projects.heading}</p>
+      <h2 class="display mt-4 text-section">{projects.subheading}</h2>
+    </div>
+    <p class="font-mono text-[12px] text-fg-faint">
+      {String(projects.items.length).padStart(2, "0")} / {String(projects.items.length).padStart(2, "0")}
+    </p>
+  </div>
+
+  <div class="mt-12 space-y-6">
+    {
+      features.map((project, i) => (
+        <ProjectCard project={project} labels={labels} feature flip={i % 2 === 1} index={i} />
+      ))
+    }
+  </div>
+
+  {
+    compact.length > 0 && (
+      <div class="mt-6 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        {compact.map((project, i) => (
+          <ProjectCard project={project} labels={labels} index={features.length + i} />
+        ))}
+      </div>
+    )
+  }
+</section>
