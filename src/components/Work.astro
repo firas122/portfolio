@@ -26,7 +26,7 @@ const compact = projects.items.filter((p) => !p.featured && !p.metrics);
   <div class="mt-12 space-y-6">
     {
       features.map((project, i) => (
-        <ProjectCard project={project} labels={labels} feature flip={i % 2 === 1} index={i} />
+        <ProjectCard project={project} labels={labels} feature index={i} />
       ))
     }
   </div>
