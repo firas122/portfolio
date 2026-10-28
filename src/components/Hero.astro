@@ -4,60 +4,66 @@ import DocToJson from "@/components/DocToJson.astro";
 import Portrait from "@/components/Portrait.astro";
 
 const lang = Astro.currentLocale ?? "en";
-const { hero, person } = getContent(lang);
+const { hero, person, projects } = getContent(lang);
+
+// The hero's proof line is read from the flagship project rather than restated,
+// so a figure can never be stale in one place and current in the other.
+const flagship = projects.items.find((p) => p.featured);
+const proof = flagship?.metrics?.[0];
 ---
 
-<section id="top" class="section-shell relative flex flex-col gap-16 pb-8 pt-16 sm:pt-24 lg:flex-row lg:items-start lg:gap-12 lg:pb-10 lg:pt-28">
-  <div class="max-w-xl animate-fade-up">
-    <Portrait
-      class="mx-auto mb-6 h-40 w-40 lg:mx-0 lg:h-[340px] lg:w-[340px]"
-      placeholderClass="text-5xl lg:text-8xl"
-      loading="eager"
-      fetchpriority="high"
-    />
-
-    <div class="text-center lg:text-left">
-      <h1 class="text-2xl font-bold tracking-tight text-ink-900 sm:text-3xl dark:text-ink-100">{person.name}</h1>
-      <p class="section-heading mt-2">{hero.eyebrow}</p>
+<section
+  id="top"
+  class="section-shell relative grid scroll-mt-24 gap-14 pb-10 pt-16 sm:pt-20 lg:grid-cols-[minmax(0,1fr)_minmax(0,26rem)] lg:items-start lg:gap-16 lg:pt-24"
+>
+  <div class="animate-fade-up">
+    <div class="flex items-center gap-4">
+      <Portrait class="h-16 w-16 shrink-0 rounded-full" placeholderClass="text-xl" loading="eager" fetchpriority="high" />
+      <div>
+        <p class="font-mono text-[13px] text-ink-600 dark:text-ink-200">{person.name}</p>
+        <p class="field-label mt-1">{hero.eyebrow}</p>
+      </div>
     </div>
 
-    <p class="mt-8 text-4xl font-extrabold leading-[1.1] tracking-tight text-ink-900 sm:text-5xl lg:text-[3.25rem] dark:text-ink-100">
+    <h1
+      class="mt-9 font-display text-[2.6rem] leading-[1.05] tracking-tight text-ink-900 sm:text-[3.4rem] lg:text-[3.9rem] dark:text-ink-100"
+      style="text-wrap: balance"
+    >
       {hero.headline}
-    </p>
-    <p class="mt-6 text-lg leading-relaxed text-ink-400">
+    </h1>
+
+    <p class="mt-6 max-w-2xl text-[1.0625rem] leading-relaxed text-ink-400">
       {hero.subhead}
     </p>
 
-    <div class="mt-8 flex flex-wrap items-center gap-4">
-      <a
-        href={hero.ctaPrimary.href}
-        class="inline-flex items-center gap-2 rounded-full bg-ink-900 px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-ink-900/10 transition-all hover:-translate-y-0.5 hover:bg-accent-dim dark:bg-accent dark:text-ink-950 dark:shadow-accent/20 dark:hover:bg-accent-bright"
-      >
+    {
+      proof && (
+        <p class="mt-7 flex flex-wrap items-baseline gap-x-3 gap-y-1 border-l-2 border-accent pl-4 dark:border-accent-bright">
+          <span class="metric-value text-[1.6rem] text-accent-dim dark:text-accent-bright">{proof.value}</span>
+          <span class="text-[14px] text-ink-400">{proof.label}</span>
+        </p>
+      )
+    }
+
+    <div class="mt-9 flex flex-wrap items-center gap-3">
+      <a href={hero.ctaPrimary.href} class="btn-primary">
         {hero.ctaPrimary.label}
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="h-4 w-4">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="h-4 w-4" aria-hidden="true">
           <path d="M5 12h14M13 6l6 6-6 6"></path>
         </svg>
       </a>
-      <a
-        href={person.links.upwork}
-        target="_blank"
-        rel="noopener noreferrer"
-        class="inline-flex items-center gap-2 rounded-full border border-ink-200 px-5 py-3 text-sm font-semibold text-ink-900 transition-colors hover:border-accent/50 hover:text-accent-dim dark:border-ink-700 dark:text-ink-100 dark:hover:text-accent"
-      >
+      <a href={person.links.upwork} target="_blank" rel="noopener noreferrer" class="btn-ghost">
         {hero.ctaSecondary.label}
       </a>
     </div>
 
-    <div class="mt-10 flex items-center gap-3 text-sm text-ink-400">
-      <span class="relative flex h-2.5 w-2.5">
-        <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-60"></span>
-        <span class="relative inline-flex h-2.5 w-2.5 rounded-full bg-accent"></span>
-      </span>
+    <p class="mt-8 flex items-center gap-2.5 font-mono text-[12.5px] text-ink-400">
+      <span class="inline-flex h-1.5 w-1.5 rounded-full bg-accent dark:bg-accent-bright"></span>
       {person.location} · {person.locationNote}
-    </div>
+    </p>
   </div>
 
-  <div class="relative mx-auto w-full max-w-md animate-fade-up lg:mx-0 lg:mt-56 lg:max-w-lg" style="animation-delay: 150ms">
+  <div class="animate-fade-up lg:pt-6" style="animation-delay: 120ms">
     <DocToJson />
   </div>
 </section>

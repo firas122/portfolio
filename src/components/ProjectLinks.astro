@@ -1,0 +1,68 @@
+---
+import type { ProjectLink } from "@/i18n/en";
+
+// One place that decides how a project's links look, so the featured record and
+// the grid cards cannot drift apart. A project with no public link says why
+// instead of rendering a dead button.
+interface Props {
+  links?: ProjectLink[];
+  note?: string;
+  /** The older single-link shape, still used by some entries. */
+  legacy?: { label: string; href: string };
+}
+
+const { links, note, legacy } = Astro.props;
+const all: ProjectLink[] = links ?? (legacy ? [{ ...legacy, kind: "case" }] : []);
+---
+
+{
+  all.length > 0 ? (
+    <div class="flex flex-wrap items-center gap-x-5 gap-y-2">
+      {all.map((link) =>
+        link.kind === "demo" ? (
+          <a
+            href={link.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn-primary px-4 py-2 text-[13px]"
+          >
+            {link.label}
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              class="h-3.5 w-3.5"
+              aria-hidden="true"
+            >
+              <path d="M7 17 17 7M7 7h10v10" />
+            </svg>
+          </a>
+        ) : (
+          <a
+            href={link.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="link-draw text-[13.5px]"
+          >
+            {link.label}
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              class="h-3.5 w-3.5"
+              aria-hidden="true"
+            >
+              <path d="M7 17 17 7M7 7h10v10" />
+            </svg>
+          </a>
+        ),
+      )}
+    </div>
+  ) : note ? (
+    <p class="max-w-md text-[13px] leading-snug text-ink-400">{note}</p>
+  ) : null
+}

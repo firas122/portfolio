@@ -1,5 +1,6 @@
 // French site copy. Must mirror the shape of src/i18n/en.ts exactly.
 import { en } from "./en";
+import type { OpenSourceItem } from "./en";
 
 export const fr: typeof en = {
   site: {
@@ -32,6 +33,7 @@ export const fr: typeof en = {
     { label: "À propos", href: "#about" },
     { label: "Services", href: "#services" },
     { label: "Projets", href: "#projects" },
+    { label: "Open source", href: "#open-source" },
     { label: "Expérience", href: "#experience" },
     { label: "Compétences", href: "#skills" },
     { label: "Contact", href: "#contact" },
@@ -93,6 +95,62 @@ export const fr: typeof en = {
     outcomeLabel: "Résultat :",
     items: [
       {
+        title: "Kvitto — une extraction de tickets qui se corrige elle-même",
+        tag: "IA documentaire",
+        featured: true,
+        problem:
+          "L'OCR sur une photo de ticket de caisse se trompe forcément de chiffre : le papier thermique pâlit, se gondole et accroche les reflets. La plupart des extracteurs renvoient ce qu'ils ont lu et vous laissent découvrir le mauvais montant plus tard — ce qui, en comptabilité, est pire qu'un échec franc.",
+        approach:
+          "Un ticket suédois est surdéterminé : les lignes d'articles, le tableau de TVA et les lignes de paiement décrivent tous le même achat. J'ai construit un cœur arithmétique qui exploite cette redondance — huit contrôles de réconciliation, puis une recherche de réparation sous contraintes qui identifie le chiffre mal lu. Il signale l'ambiguïté au lieu de deviner quand les indices sont faibles. Au-dessus, une lecture OCR en quatre passes (RapidOCR et Tesseract, sur la photo et sur une copie redressée) arbitrée par le réconciliateur, servie en FastAPI à une application React Native.",
+        stack: ["Python", "FastAPI", "RapidOCR", "Tesseract", "OpenCV", "React Native", "Expo"],
+        outcome:
+          "99 % des montants imprimés corrects sur 26 tickets réels transcrits à la main — et tout montant que les moteurs parviennent à lire est désormais placé sur la bonne ligne : la perte restante est optique, pas structurelle.",
+        metrics: [
+          { value: "99 %", label: "montants corrects (556/562)" },
+          { value: "244/244", label: "montants lus bien placés" },
+          { value: "1 519", label: "tests automatisés, CI au vert" },
+        ],
+        linkNote:
+          "Dépôt privé — il traite de vrais tickets. Je peux volontiers détailler l'architecture ou faire une démo.",
+      },
+      {
+        title: "DBShow — un schéma qu'on voit, et un linter qui le relit",
+        tag: "Outil développeur",
+        problem:
+          "Un schéma de base de données est un graphe que personne ne voit, et les défauts qui coûtent cher — une clé étrangère qui pointe vers rien, un type incompatible, un index manquant, une dépendance circulaire sans ordre d'insertion valide — sont invisibles dans un dump DDL.",
+        approach:
+          "Analyse du DDL SQL, des fichiers SQLite ou du JSON entièrement dans le navigateur vers un modèle unique, rendu en graphe 3D interactif, puis lint des relations avec une explication en langage clair et le DDL de correction à copier. Permet aussi de comparer deux versions d'un schéma pour montrer ce qu'une migration a changé. La couche WebGL est réglée à la main : le texte est une texture canvas, donc une table reste un seul appel de rendu.",
+        stack: ["Next.js", "TypeScript", "React Three Fiber", "sql.js", "WebGL", "Tailwind"],
+        outcome:
+          "Sept règles de lint sur quatre formats d'entrée, interface bilingue EN/FR, et aucun schéma ne quitte le navigateur. Le seul code serveur — le chargement par URL — est protégé contre le SSRF par une validation DNS au moment de la connexion.",
+        metrics: [
+          { value: "4", label: "formats d'entrée analysés" },
+          { value: "7", label: "défauts de relation détectés" },
+          { value: "0", label: "schéma envoyé où que ce soit" },
+        ],
+        links: [
+          { label: "Démo en ligne", href: "https://dbshow.vercel.app", kind: "demo" },
+          { label: "Code source", href: "https://github.com/firas122/DBshow", kind: "repo" },
+        ],
+      },
+      {
+        title: "Étude sur la recherche — ce qui améliore vraiment le RAG",
+        tag: "Recherche",
+        problem:
+          "Les conseils sur le RAG sont surtout affirmés, rarement mesurés. Avant de placer de la recherche documentaire devant les documents d'un client, je voulais savoir quelles étapes justifient leur coût sur un corpus réel et restreint.",
+        approach:
+          "Cinq systèmes de recherche construits sur les mêmes 15 tickets — vecteurs naïfs, puis hybride BM25 + vecteurs fusionnés par reciprocal rank fusion avec un reranker cross-encoder, puis réécriture de requête par LLM, puis recherche parent-enfant, puis un agent à outils — évalués sur 85 questions rédigées après le gel des étapes précédentes, avec intervalles de confiance bootstrap et comparaisons appariées.",
+        stack: ["Python", "ChromaDB", "BM25", "Cross-encoder", "SQLite", "Évaluation"],
+        outcome:
+          "La recherche hybride avec reranking double presque le hit@3 sur des questions inédites (0,39 → 0,71) ; la réécriture par LLM n'apporte presque rien, sauf sur les questions de suivi, où elle est structurellement indispensable. L'agent a répondu à 25/25 questions agrégées, chaque chiffre vérifié contre un résultat d'outil.",
+        metrics: [
+          { value: "+82 %", label: "hit@3 grâce à l'hybride + rerank" },
+          { value: "85", label: "questions d'évaluation" },
+          { value: "25/25", label: "réponses d'agent vérifiées" },
+        ],
+        linkNote: "Documenté comme une étude d'ingénierie plutôt que livré comme produit.",
+      },
+      {
         title: "Générateur de configs d'empreintes Sensible.so",
         tag: "Outillage",
         problem:
@@ -126,6 +184,27 @@ export const fr: typeof en = {
           "Encore à un stade précoce — c'est ce que je construis actuellement. Pas encore de clients à citer, juste la direction.",
       },
     ],
+  },
+
+  openSource: {
+    heading: "Open source",
+    subheading: "Du travail sur des bases de code qui ne sont pas les miennes.",
+    roleLabel: "Ma contribution :",
+    items: [
+      {
+        title: "WonderSnap",
+        upstream: "par Akbar Sheikh",
+        tag: "Contribution",
+        summary:
+          "Un projet WebGL2 piloté aux gestes : jusqu'à 250 000 particules GPU forment 33 modèles procéduraux — monuments, anatomie, moteurs — commandés par le suivi de la main via la webcam, la physique tournant sur le GPU en transform feedback, sans aucune bibliothèque de rendu.",
+        contribution:
+          "Ajout du bilinguisme anglais/arabe sur tout le catalogue — chaque modèle porte son nom et son fait dans les deux langues, avec une mise en page de droite à gauche, un choix de langue persistant et un paramètre d'URL. Également : simplification de la machine à états, suppression du geste « snap » pour que l'application s'ouvre avec les particules déjà à l'écran, et remise à niveau de la documentation.",
+        stack: ["JavaScript", "WebGL2", "MediaPipe", "i18n / RTL", "Playwright"],
+        links: [
+          { label: "Dépôt", href: "https://github.com/AkbarSheikh-debug/wondersnap", kind: "repo" },
+        ],
+      },
+    ] as OpenSourceItem[],
   },
 
   testimonial: {

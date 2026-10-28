@@ -5,10 +5,10 @@ const lang = Astro.currentLocale ?? "en";
 const { experience } = getContent(lang);
 ---
 
-<section id="experience" class="border-y border-ink-200/70 bg-ink-100/50 py-7 sm:py-10 dark:border-ink-700/60 dark:bg-ink-900/40">
+<section id="experience" class="border-y border-ink-200/70 bg-ink-100/50 py-16 sm:py-20 dark:border-ink-700/60 dark:bg-ink-900/40">
   <div class="section-shell">
-    <p class="section-heading">{experience.heading}</p>
-    <h2 class="mt-3 max-w-xl text-3xl font-bold tracking-tight text-ink-900 sm:text-4xl dark:text-ink-100">
+    <p class="field-label">{experience.heading}</p>
+    <h2 class="section-title max-w-xl">
       {experience.subheading}
     </h2>
 

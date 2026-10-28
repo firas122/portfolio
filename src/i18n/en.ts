@@ -7,6 +7,21 @@ export type Service = {
   description: string;
 };
 
+// A measured result from a project: the figure, and what it counts. Shown as
+// tabular digits so a row of them lines up. Optional — a project with nothing
+// honestly measured shows none rather than an invented one.
+export type ProjectMetric = {
+  value: string;
+  label: string;
+};
+
+export type ProjectLink = {
+  label: string;
+  href: string;
+  /** "demo" gets the filled treatment; everything else is a quiet text link. */
+  kind?: "demo" | "repo" | "case";
+};
+
 export type Project = {
   title: string;
   tag: string;
@@ -14,7 +29,24 @@ export type Project = {
   approach: string;
   stack: string[];
   outcome: string;
+  /** Headline project: given the full-width record at the top of the section. */
+  featured?: boolean;
+  metrics?: ProjectMetric[];
+  links?: ProjectLink[];
+  /** Said plainly when there is no public link, instead of a dead button. */
+  linkNote?: string;
   link?: { label: string; href: string };
+};
+
+export type OpenSourceItem = {
+  title: string;
+  /** Who wrote the project. Shown beside the title, never hidden. */
+  upstream: string;
+  tag: string;
+  summary: string;
+  contribution: string;
+  stack: string[];
+  links?: ProjectLink[];
 };
 
 export type Experience = {
@@ -60,6 +92,7 @@ export const en = {
     { label: "About", href: "#about" },
     { label: "Services", href: "#services" },
     { label: "Projects", href: "#projects" },
+    { label: "Open source", href: "#open-source" },
     { label: "Experience", href: "#experience" },
     { label: "Skills", href: "#skills" },
     { label: "Contact", href: "#contact" },
@@ -121,6 +154,62 @@ export const en = {
     outcomeLabel: "Outcome:",
     items: [
       {
+        title: "Kvitto — receipt extraction that corrects itself",
+        tag: "Document AI",
+        featured: true,
+        problem:
+          "OCR on a photographed till receipt will misread digits — thermal paper fades, curls and catches glare. Most extractors hand back whatever they read and leave you to discover the bad figure later, which for accounting is worse than failing outright.",
+        approach:
+          "A Swedish receipt is over-determined: the line items, the VAT table and the payment lines all describe the same purchase. I built an arithmetic core that exploits that redundancy — eight reconciliation checks, then a constrained repair search that finds which single digit was misread. It reports ambiguity instead of guessing when the evidence is thin. On top sits a four-route OCR pass (RapidOCR and Tesseract, each on the photo and on a rectified copy) with the reconciler arbitrating between readings, served over FastAPI to a React Native app.",
+        stack: ["Python", "FastAPI", "RapidOCR", "Tesseract", "OpenCV", "React Native", "Expo"],
+        outcome:
+          "99% of printed amounts correct across 26 hand-transcribed real receipts — and every amount the engines could read is now placed on the right line, which means the remaining loss is optical, not structural.",
+        metrics: [
+          { value: "99%", label: "amount fields correct (556/562)" },
+          { value: "244/244", label: "read amounts placed correctly" },
+          { value: "1,519", label: "automated tests, CI green" },
+        ],
+        linkNote:
+          "Private repository — it handles real receipts. Happy to walk through the architecture or demo it live.",
+      },
+      {
+        title: "DBShow — a schema you can see, and a linter that reads it back",
+        tag: "Developer Tool",
+        problem:
+          "A database schema is a graph nobody can actually see, and the relationship defects that hurt — a foreign key pointing at nothing, a type mismatch, a missing index, a circular dependency with no valid insert order — are invisible in a DDL dump.",
+        approach:
+          "Parses SQL DDL, SQLite files or JSON entirely in the browser into one schema model, draws it as an interactive 3D graph, then lints the relationships and explains each finding in plain English with copyable fix DDL. It can also diff two versions of a schema to show exactly what a migration changed. The WebGL layer is hand-tuned — text renders as a canvas texture so a table stays one draw call.",
+        stack: ["Next.js", "TypeScript", "React Three Fiber", "sql.js", "WebGL", "Tailwind"],
+        outcome:
+          "Seven linter rules over four input formats, bilingual EN/FR, and schemas never leave the browser. The one piece of server code — a URL loader — is hardened against SSRF with connect-time DNS validation.",
+        metrics: [
+          { value: "4", label: "input formats parsed" },
+          { value: "7", label: "relationship defects detected" },
+          { value: "0", label: "schemas uploaded anywhere" },
+        ],
+        links: [
+          { label: "Live demo", href: "https://dbshow.vercel.app", kind: "demo" },
+          { label: "Source", href: "https://github.com/firas122/DBshow", kind: "repo" },
+        ],
+      },
+      {
+        title: "Retrieval study — what actually improves RAG",
+        tag: "Research",
+        problem:
+          "RAG advice is mostly asserted, not measured. Before putting retrieval in front of a client's documents I wanted to know which stages earn their cost on a small, real corpus.",
+        approach:
+          "Built five retrieval systems over the same 15 receipts — naive vectors, then hybrid BM25 + vectors fused with reciprocal rank fusion and a cross-encoder reranker, then LLM query rewriting, then parent-child retrieval, then a tool-calling agent — and scored each on 85 questions written after the earlier stages were frozen, with bootstrap confidence intervals and paired comparisons.",
+        stack: ["Python", "ChromaDB", "BM25", "Cross-encoder", "SQLite", "Evaluation"],
+        outcome:
+          "Hybrid search plus reranking roughly doubled hit@3 on unseen questions (0.39 → 0.71); LLM query rewriting added almost nothing except on follow-up questions, where it is structurally required. The agent answered 25/25 aggregate questions with every figure checked against a tool result.",
+        metrics: [
+          { value: "+82%", label: "hit@3 from hybrid + rerank" },
+          { value: "85", label: "evaluation questions" },
+          { value: "25/25", label: "grounded agent answers" },
+        ],
+        linkNote: "Written up as an engineering study rather than shipped as a product.",
+      },
+      {
         title: "Sensible.so Fingerprint Config Generator",
         tag: "Tooling",
         problem:
@@ -154,6 +243,29 @@ export const en = {
           "Early-stage — this is what I'm building right now. No customer claims yet, just the direction.",
       },
     ] as Project[],
+  },
+
+  // Contributions to other people's projects. Kept apart from `projects` on
+  // purpose: the authorship is different, and the section says so.
+  openSource: {
+    heading: "Open source",
+    subheading: "Work on codebases I don't own.",
+    roleLabel: "My contribution:",
+    items: [
+      {
+        title: "WonderSnap",
+        upstream: "by Akbar Sheikh",
+        tag: "Contribution",
+        summary:
+          "A gesture-controlled WebGL2 toy: up to 250,000 GPU particles form 33 procedural models — wonders, anatomy, engines — driven by hand tracking from the webcam, with the physics running on the GPU through transform feedback and no rendering library underneath.",
+        contribution:
+          "Added bilingual English/Arabic support across the whole catalogue — every model carries its name and fact in both languages, with a right-to-left layout mode, a persisted language choice and a URL override. Also simplified the state machine, removing the snap gesture so the app opens with particles already on screen, and brought the documentation back in line with the code.",
+        stack: ["JavaScript", "WebGL2", "MediaPipe", "i18n / RTL", "Playwright"],
+        links: [
+          { label: "Repository", href: "https://github.com/AkbarSheikh-debug/wondersnap", kind: "repo" },
+        ],
+      },
+    ] as OpenSourceItem[],
   },
 
   testimonial: {

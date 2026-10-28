@@ -12,12 +12,12 @@ const jsonLines = [
 ---
 
 <div class="relative">
-  <div class="absolute -inset-6 rounded-[2.5rem] bg-accent/10 blur-3xl dark:bg-accent/20" aria-hidden="true"></div>
+  <div class="absolute -inset-6 rounded-[2.5rem] bg-accent/10 blur-3xl dark:bg-accent-bright/20" aria-hidden="true"></div>
 
   <div class="relative grid gap-3">
     <!-- Messy scanned document -->
     <div
-      class="panel glow-border relative overflow-hidden rounded-2xl p-5 shadow-xl shadow-ink-900/[0.08] animate-float"
+      class="record relative overflow-hidden p-5 animate-float"
       data-scan-panel
       aria-hidden="true"
     >
@@ -82,7 +82,7 @@ const jsonLines = [
               <div class="h-2 w-10 rounded bg-ink-400/50 dark:bg-ink-200/60"></div>
             </div>
             <div class="flex items-center justify-between border-t border-ink-400/40 pt-1.5 dark:border-ink-400/40">
-              <div class="h-2.5 w-10 rounded bg-accent/70 dark:bg-accent"></div>
+              <div class="h-2.5 w-10 rounded bg-accent/70 dark:bg-accent-bright"></div>
               <div class="h-2.5 w-14 rounded bg-accent dark:bg-accent-bright"></div>
             </div>
           </div>
@@ -100,22 +100,22 @@ const jsonLines = [
     <!-- Connector -->
     <div class="flex items-center justify-center gap-2 py-1 text-ink-400" aria-hidden="true">
       <span class="h-px w-10 bg-gradient-to-r from-transparent to-ink-200 dark:to-ink-700"></span>
-      <span class="font-mono text-[10px] uppercase tracking-widest text-accent-dim dark:text-accent">extracting</span>
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="h-3.5 w-3.5 text-accent-dim dark:text-accent">
+      <span class="font-mono text-[10px] uppercase tracking-widest text-accent-dim dark:text-accent-bright">extracting</span>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="h-3.5 w-3.5 text-accent-dim dark:text-accent-bright">
         <path d="M12 5v14M6 13l6 6 6-6"></path>
       </svg>
       <span class="h-px w-10 bg-gradient-to-l from-transparent to-ink-200 dark:to-ink-700"></span>
     </div>
 
     <!-- Structured JSON output -->
-    <div class="panel glow-border min-w-0 rounded-2xl p-5 shadow-xl shadow-accent/10" aria-hidden="true">
+    <div class="record min-w-0 p-5" aria-hidden="true">
       <div class="mb-4 flex items-center justify-between">
         <div class="flex gap-1.5">
           <span class="h-2.5 w-2.5 rounded-full bg-red-400/70"></span>
           <span class="h-2.5 w-2.5 rounded-full bg-amber-400/70"></span>
           <span class="h-2.5 w-2.5 rounded-full bg-emerald-400/70"></span>
         </div>
-        <span class="font-mono text-[10px] uppercase tracking-widest text-accent-dim dark:text-accent">structured.json</span>
+        <span class="font-mono text-[10px] uppercase tracking-widest text-accent-dim dark:text-accent-bright">structured.json</span>
       </div>
 
       <pre class="overflow-x-auto font-mono text-[13px] leading-relaxed"><code>{"{"}
@@ -123,7 +123,7 @@ const jsonLines = [
   <span
     class="block animate-fade-up opacity-0"
     style={`animation-delay: ${500 + line.delay}ms; animation-fill-mode: forwards;`}
-  >  <span class="text-accent-dim dark:text-accent">"{line.key}"</span><span class="text-ink-400">:</span> <span class={line.isNumber ? "text-ink-900 dark:text-ink-100" : "text-emerald-600 dark:text-emerald-400"}>{line.value}</span>{i < jsonLines.length - 1 ? "," : ""}</span>
+  >  <span class="text-accent-dim dark:text-accent-bright">"{line.key}"</span><span class="text-ink-400">:</span> <span class={line.isNumber ? "text-ink-900 dark:text-ink-100" : "text-emerald-600 dark:text-emerald-400"}>{line.value}</span>{i < jsonLines.length - 1 ? "," : ""}</span>
 ))}
 {"}"}</code></pre>
     </div>
