@@ -30,12 +30,12 @@ export const fr: typeof en = {
   },
 
   nav: [
-    { label: "À propos", href: "#about" },
-    { label: "Services", href: "#services" },
     { label: "Projets", href: "#projects" },
     { label: "Open source", href: "#open-source" },
-    { label: "Expérience", href: "#experience" },
+    { label: "Services", href: "#services" },
     { label: "Compétences", href: "#skills" },
+    { label: "Expérience", href: "#experience" },
+    { label: "À propos", href: "#about" },
     { label: "Contact", href: "#contact" },
   ],
 

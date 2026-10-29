@@ -5,8 +5,8 @@ import Hero from "@/components/Hero.astro";
 import Work from "@/components/Work.astro";
 import OpenSource from "@/components/OpenSource.astro";
 import Expertise from "@/components/Expertise.astro";
-import About from "@/components/About.astro";
 import Experience from "@/components/Experience.astro";
+import About from "@/components/About.astro";
 import Testimonial from "@/components/Testimonial.astro";
 import Contact from "@/components/Contact.astro";
 import Footer from "@/components/Footer.astro";
@@ -16,14 +16,15 @@ import Footer from "@/components/Footer.astro";
   <Nav />
   <main>
     {/* Work leads. The old flow spent three sections on self-description
-        before showing anything built; this puts the evidence first and the
-        biography after it. */}
+        before showing anything built; this puts the evidence first — Work,
+        Open source, Expertise, Experience — and the biography after it, as a
+        human beat before the testimonial and the ask. */}
     <Hero />
     <Work />
     <OpenSource />
     <Expertise />
-    <About />
     <Experience />
+    <About />
     <Testimonial />
     <Contact />
   </main>
